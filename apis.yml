@@ -1,0 +1,19 @@
+aid: edi-214
+url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/apis.yml
+apis:
+- aid: edi-214:edi-214-api
+  name: EDI 214 Shipment Status Standard
+  tags:
+  - Logistics
+  - EDI
+  - X12
+  - Shipment Tracking
+  - Freight
+  image: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/image.png
+  humanURL: https://www.edibasics.com/edi-resources/document-standards/
+  baseURL: https://edi-gateway.logistics-platform.example.com/api
+  properties:
+  - url: https://www.edibasics.com/edi-resources/document-standards/
+    type: Documentation
+  description: >-
+    The EDI 214 (Transportation Carrier Shipment Status Message) is an X12 electronic data interchange standard for freight shipment tracking. EDI-to-HTTP gateways translate X12 214 segments into XML/JSON for carrier status updates, delivery confirmations, and shipment exception reporting.
