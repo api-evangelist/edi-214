@@ -22,6 +22,8 @@ apis:
     type: Documentation
   - url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
     type: GettingStarted
+  - url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/openapi/stedi-edi214-openapi.yml
+    type: OpenAPI
   description: >-
     The EDI 214 (Transportation Carrier Shipment Status Message) is an ANSI X12 electronic data interchange standard transaction set used by transportation carriers to provide shippers, consignees, and agents with shipment status in terms of dates, times, locations, route, and conveyance. Key segments include B10 (tracking number), MS1 (current location), and AT7 (current status). EDI-to-HTTP gateways translate X12 214 segments into XML/JSON for carrier status updates, delivery confirmations, and exception reporting.
 - aid: edi-214:stedi-edi-api
@@ -66,6 +68,12 @@ apis:
 common:
 - url: https://x12.org/
   type: Website
+- url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/openapi/stedi-edi214-openapi.yml
+  type: OpenAPI
+- url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-schema/edi-214-shipment-status-schema.json
+  type: JSONSchema
+- url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-ld/edi-214-context.jsonld
+  type: JSONLDContext
 - url: https://www.stedi.com/edi
   type: Portal
 - url: https://x12.org/node/4214

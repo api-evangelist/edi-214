@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://x12.org/schemas/edi-214",
+  "title": "EDI 214 Transportation Carrier Shipment Status Message",
+  "description": "JSON Schema representing the X12 EDI 214 Transportation Carrier Shipment Status Message (Transaction Set 214). Maps the key segments B10, LX, AT7, MS1, MS2, and Q2 to structured JSON.",
+  "type": "object",
+  "required": ["transactionSetId", "header"],
+  "properties": {
+    "transactionSetId": {
+      "type": "string",
+      "description": "X12 transaction set control number from ST segment",
+      "pattern": "^[0-9]{4}$"
+    },
+    "interchangeHeader": {
+      "$ref": "#/$defs/IsaHeader"
+    },
+    "functionalGroup": {
+      "$ref": "#/$defs/GsHeader"
+    },
+    "header": {
+      "$ref": "#/$defs/B10Segment",
+      "description": "B10 - Beginning Segment for Transportation Carrier Shipment Status Message"
+    },
+    "referenceNumbers": {
+      "type": "array",
+      "description": "L11 - Business Instructions and Reference Number segments",
+      "items": {
+        "$ref": "#/$defs/L11Segment"
+      }
+    },
+    "shipmentGroups": {
+      "type": "array",
+      "description": "LX detail loops containing AT7 status events",
+      "items": {
+        "$ref": "#/$defs/LxLoop"
+      }
+    }
+  },
+  "$defs": {
+    "IsaHeader": {
+      "type": "object",
+      "description": "ISA - Interchange Control Header",
+      "properties": {
+        "authorizationInformationQualifier": { "type": "string" },
+        "authorizationInformation": { "type": "string" },
+        "securityInformationQualifier": { "type": "string" },
+        "securityInformation": { "type": "string" },
+        "interchangeSenderIdQualifier": { "type": "string" },
+        "interchangeSenderId": { "type": "string" },
+        "interchangeReceiverIdQualifier": { "type": "string" },
+        "interchangeReceiverId": { "type": "string" },
+        "interchangeDate": {
+          "type": "string",
+          "pattern": "^[0-9]{6}$",
+          "description": "YYMMDD format"
+        },
+        "interchangeTime": {
+          "type": "string",
+          "pattern": "^[0-9]{4}$",
+          "description": "HHMM format"
+        },
+        "interchangeControlNumber": { "type": "string" },
+        "acknowledgmentRequested": {
+          "type": "string",
+          "enum": ["0", "1"]
+        },
+        "usageIndicator": {
+          "type": "string",
+          "enum": ["P", "T"],
+          "description": "P=Production, T=Test"
+        }
+      }
+    },
+    "GsHeader": {
+      "type": "object",
+      "description": "GS - Functional Group Header",
+      "properties": {
+        "functionalIdentifierCode": {
+          "type": "string",
+          "const": "QM",
+          "description": "QM = Motor Carrier Shipment Status Message"
+        },
+        "applicationSenderCode": { "type": "string" },
+        "applicationReceiverCode": { "type": "string" },
+        "date": { "type": "string", "pattern": "^[0-9]{8}$" },
+        "time": { "type": "string", "pattern": "^[0-9]{4,8}$" },
+        "groupControlNumber": { "type": "string" },
+        "responsibleAgencyCode": {
+          "type": "string",
+          "const": "X",
+          "description": "X = Accredited Standards Committee X12"
+        },
+        "versionIdentifierCode": {
+          "type": "string",
+          "examples": ["005010X214", "004010"],
+          "description": "X12 implementation convention version"
+        }
+      }
+    },
+    "B10Segment": {
+      "type": "object",
+      "description": "B10 - Beginning Segment for Transportation Carrier Shipment Status Message",
+      "required": ["referenceIdentification", "scac"],
+      "properties": {
+        "referenceIdentification": {
+          "type": "string",
+          "description": "B10-01: Carrier tracking/PRO number identifying the shipment",
+          "maxLength": 50
+        },
+        "shipmentIdentificationNumber": {
+          "type": "string",
+          "description": "B10-02: Carrier-assigned shipment identifier (BOL number)",
+          "maxLength": 30
+        },
+        "scac": {
+          "type": "string",
+          "description": "B10-03: Standard Carrier Alpha Code (2-4 character carrier identifier)",
+          "minLength": 2,
+          "maxLength": 4,
+          "examples": ["FXFE", "UPGD", "CTII", "OVTN"]
+        },
+        "inquiryRequestNumber": {
+          "type": "string",
+          "description": "B10-04: Inquiry request number (links to original 213 inquiry)",
+          "maxLength": 9
+        },
+        "masterBolNumber": {
+          "type": "string",
+          "description": "B10-08: Master BOL number for consolidated shipments",
+          "maxLength": 22
+        }
+      }
+    },
+    "L11Segment": {
+      "type": "object",
+      "description": "L11 - Business Instructions and Reference Number",
+      "properties": {
+        "referenceIdentificationNumber": {
+          "type": "string",
+          "description": "L11-01: Reference number (PO, SO, etc.)",
+          "maxLength": 30
+        },
+        "referenceIdentificationQualifier": {
+          "type": "string",
+          "description": "L11-02: Qualifier (PO=Purchase Order, SI=Shipper's ID, etc.)",
+          "examples": ["PO", "SI", "BM", "AO", "CN"],
+          "maxLength": 3
+        },
+        "description": {
+          "type": "string",
+          "description": "L11-03: Free-form description",
+          "maxLength": 45
+        }
+      }
+    },
+    "LxLoop": {
+      "type": "object",
+      "description": "LX detail loop - one per shipment segment or status group",
+      "required": ["lxAssignedNumber"],
+      "properties": {
+        "lxAssignedNumber": {
+          "type": "integer",
+          "description": "LX-01: Sequential counter for each LX loop",
+          "minimum": 1
+        },
+        "statusEvents": {
+          "type": "array",
+          "description": "AT7 shipment status segments within this LX loop",
+          "items": {
+            "$ref": "#/$defs/At7Segment"
+          }
+        },
+        "currentLocation": {
+          "$ref": "#/$defs/Ms1Segment"
+        },
+        "equipmentDetails": {
+          "$ref": "#/$defs/Ms2Segment"
+        },
+        "shipmentQuantity": {
+          "$ref": "#/$defs/Q2Segment"
+        }
+      }
+    },
+    "At7Segment": {
+      "type": "object",
+      "description": "AT7 - Shipment Status Details. Describes the current or historical status of the shipment.",
+      "required": ["shipmentStatusCode"],
+      "properties": {
+        "shipmentStatusCode": {
+          "type": "string",
+          "description": "AT7-01: Carrier-specific shipment status code",
+          "maxLength": 2,
+          "examples": [
+            "X3",
+            "D1",
+            "AF",
+            "X1",
+            "OA",
+            "P1",
+            "CD",
+            "X6"
+          ]
+        },
+        "statusReasonCode": {
+          "type": "string",
+          "description": "AT7-02: Reason code explaining why the status occurred",
+          "maxLength": 3,
+          "examples": ["NS", "RR", "CP", "NA", "AG", "AE", "AM", "AN"]
+        },
+        "appointmentStatusCode": {
+          "type": "string",
+          "description": "AT7-03: Code for appointment scheduling status",
+          "maxLength": 2
+        },
+        "appointmentReasonCode": {
+          "type": "string",
+          "description": "AT7-04: Reason code for appointment status",
+          "maxLength": 3
+        },
+        "date": {
+          "type": "string",
+          "description": "AT7-05: Date of the status event in CCYYMMDD format",
+          "pattern": "^[0-9]{8}$",
+          "examples": ["20260318"]
+        },
+        "time": {
+          "type": "string",
+          "description": "AT7-06: Time of the status event in HHMM format",
+          "pattern": "^[0-9]{4}$",
+          "examples": ["1445"]
+        },
+        "timeCode": {
+          "type": "string",
+          "description": "AT7-07: Time zone designation code",
+          "enum": ["ET", "CT", "MT", "PT", "AT", "HT", "UT", "LT"]
+        }
+      }
+    },
+    "Ms1Segment": {
+      "type": "object",
+      "description": "MS1 - Equipment, Shipment, or Real Property Location. There can only be one MS1 per LX loop.",
+      "properties": {
+        "cityName": {
+          "type": "string",
+          "description": "MS1-01: City name of the current shipment location",
+          "maxLength": 30,
+          "examples": ["Dallas", "Chicago", "Atlanta"]
+        },
+        "stateOrProvinceCode": {
+          "type": "string",
+          "description": "MS1-02: US state or Canadian province code",
+          "pattern": "^[A-Z]{2}$",
+          "examples": ["TX", "IL", "GA"]
+        },
+        "countryCode": {
+          "type": "string",
+          "description": "MS1-03: ISO country code",
+          "pattern": "^[A-Z]{2}$"
+        },
+        "longitudeCode": {
+          "type": "string",
+          "description": "MS1-04: Longitude in DDDMM.MM format",
+          "pattern": "^[0-9]{5}\\.[0-9]{2}$"
+        },
+        "latitudeCode": {
+          "type": "string",
+          "description": "MS1-05: Latitude in DDMM.MM format",
+          "pattern": "^[0-9]{4}\\.[0-9]{2}$"
+        },
+        "directionIdentifierCodeLongitude": {
+          "type": "string",
+          "description": "MS1-06: E for East, W for West longitude",
+          "enum": ["E", "W"]
+        },
+        "directionIdentifierCodeLatitude": {
+          "type": "string",
+          "description": "MS1-07: N for North, S for South latitude",
+          "enum": ["N", "S"]
+        }
+      }
+    },
+    "Ms2Segment": {
+      "type": "object",
+      "description": "MS2 - Equipment or Container Owner and Type",
+      "properties": {
+        "standardCarrierAlphaCode": {
+          "type": "string",
+          "description": "MS2-01: SCAC of the equipment owner",
+          "minLength": 2,
+          "maxLength": 4
+        },
+        "equipmentNumber": {
+          "type": "string",
+          "description": "MS2-02: Trailer, container, or rail car number",
+          "maxLength": 15,
+          "examples": ["AB102", "MSKU1234567"]
+        },
+        "equipmentDescriptionCode": {
+          "type": "string",
+          "description": "MS2-03: Code identifying the type of equipment",
+          "maxLength": 2,
+          "examples": ["TA", "TL", "CN", "TR", "RR"]
+        },
+        "equipmentLength": {
+          "type": "number",
+          "description": "MS2-05: Equipment length in feet"
+        }
+      }
+    },
+    "Q2Segment": {
+      "type": "object",
+      "description": "Q2 - Status Details (lading weight, pieces, commodity)",
+      "properties": {
+        "weight": {
+          "type": "number",
+          "description": "Q2-02: Lading weight",
+          "minimum": 0
+        },
+        "weightUnitCode": {
+          "type": "string",
+          "description": "Q2-03: L=Pounds, K=Kilograms, N=Tons",
+          "enum": ["L", "K", "N"]
+        },
+        "ladingQuantity": {
+          "type": "integer",
+          "description": "Q2-05: Number of pieces/packages",
+          "minimum": 0
+        },
+        "packagingFormCode": {
+          "type": "string",
+          "description": "Q2-06: Type of packaging",
+          "maxLength": 3,
+          "examples": ["CTN", "PLT", "SKD", "BOX"]
+        },
+        "commodityDescription": {
+          "type": "string",
+          "description": "Q2-11: Description of the commodity",
+          "maxLength": 50
+        }
+      }
+    }
+  }
+}

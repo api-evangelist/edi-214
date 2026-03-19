@@ -1,0 +1,110 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "edi": "https://x12.org/schemas/edi-214/",
+    "schema": "https://schema.org/",
+    "rdfs": "http://www.w3.org/2000/01/rdf-schema#",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "geo": "http://www.w3.org/2003/01/geo/wgs84_pos#",
+
+    "Edi214Document": {
+      "@id": "edi:ShipmentStatusMessage",
+      "@type": "schema:ParcelDelivery"
+    },
+    "B10Segment": {
+      "@id": "edi:ShipmentHeader"
+    },
+    "At7Segment": {
+      "@id": "edi:StatusEvent",
+      "@type": "schema:DeliveryEvent"
+    },
+    "Ms1Segment": {
+      "@id": "edi:ShipmentLocation",
+      "@type": "schema:Place"
+    },
+    "Ms2Segment": {
+      "@id": "edi:EquipmentInfo"
+    },
+    "LxLoop": {
+      "@id": "edi:StatusGroup"
+    },
+
+    "transactionSetId": {
+      "@id": "edi:transactionSetControlNumber"
+    },
+    "referenceIdentification": {
+      "@id": "schema:trackingNumber"
+    },
+    "shipmentIdentificationNumber": {
+      "@id": "schema:identifier"
+    },
+    "scac": {
+      "@id": "edi:standardCarrierAlphaCode"
+    },
+    "shipmentStatusCode": {
+      "@id": "edi:statusCode"
+    },
+    "statusReasonCode": {
+      "@id": "edi:reasonCode"
+    },
+    "date": {
+      "@id": "schema:startDate"
+    },
+    "time": {
+      "@id": "edi:eventTime"
+    },
+    "timeCode": {
+      "@id": "edi:timeZone"
+    },
+    "cityName": {
+      "@id": "schema:addressLocality"
+    },
+    "stateOrProvinceCode": {
+      "@id": "schema:addressRegion"
+    },
+    "countryCode": {
+      "@id": "schema:addressCountry"
+    },
+    "longitudeCode": {
+      "@id": "geo:long"
+    },
+    "latitudeCode": {
+      "@id": "geo:lat"
+    },
+    "equipmentNumber": {
+      "@id": "schema:serialNumber"
+    },
+    "equipmentDescriptionCode": {
+      "@id": "edi:equipmentType"
+    },
+    "weight": {
+      "@id": "schema:weight",
+      "@type": "schema:QuantitativeValue"
+    },
+    "ladingQuantity": {
+      "@id": "schema:numberOfItems",
+      "@type": "xsd:integer"
+    },
+    "commodityDescription": {
+      "@id": "schema:description"
+    },
+    "statusEvents": {
+      "@id": "edi:hasStatusEvent",
+      "@container": "@set"
+    },
+    "shipmentGroups": {
+      "@id": "edi:hasShipmentGroup",
+      "@container": "@set"
+    },
+    "referenceNumbers": {
+      "@id": "edi:hasReference",
+      "@container": "@set"
+    },
+    "referenceIdentificationNumber": {
+      "@id": "schema:identifier"
+    },
+    "referenceIdentificationQualifier": {
+      "@id": "edi:referenceQualifier"
+    }
+  }
+}
