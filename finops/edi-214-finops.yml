@@ -1,151 +1,80 @@
 specification: FinOps Framework
 specificationVersion: '1.0'
+schema: https://www.finops.org/framework/
+provider: EDI 214 (Transportation Carrier Shipment Status)
+providerId: edi-214
+created: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
+tags:
+  - FinOps
+  - FOCUS
+  - EDI
+  - X12
+  - Logistics
+description: 'FOCUS-aligned FinOps for EDI 214 implementations: cost falls on the EDI platform vendor
+  (Stedi, Flexport, SPS Commerce, VAN providers) and is billed per-document, per-trading-partner, or
+  via subscription. The standard itself is governed by ASC X12 membership.'
+notes: EDI 214 is a standard. FinOps mapping should be reconciled per chosen vendor invoice (Stedi, SPS,
+  Flexport, etc.).
+sources:
+  - https://x12.org/
+  - https://www.stedi.com/pricing
+  - https://www.spscommerce.com/
 alignedWith:
   framework: FinOps Foundation Framework
   frameworkUrl: https://www.finops.org/framework/
   dataSpec: FOCUS
   dataSpecVersion: '1.3'
   dataSpecUrl: https://focus.finops.org/focus-specification/v1-3/
-provider: edi-214
-providerId: edi-214
-publisherName: edi-214
-serviceCategory: API
-created: '2026-05-04'
-modified: '2026-05-04'
-tags:
-  - FinOps
-  - Cost Management
-  - FOCUS
-description: FinOps framework definition for the edi-214 API surface. Provides a FOCUS-aligned mapping
-  for cost allocation, usage measurement, and unit-economics reporting across the provider's APIs.
-principles:
-  - name: Visibility
-    description: Make API consumption costs visible to engineering, product, and finance teams in near
-      real-time.
-  - name: Allocation
-    description: Tag every chargeable API call with the consuming team, environment, application, and
-      feature so cost can be allocated.
-  - name: Optimization
-    description: Continuously evaluate request patterns, caching, batching, and tier selection to reduce
-      cost per useful unit of work.
-  - name: Accountability
-    description: Establish budget owners and chargeback or showback flows for each consuming team.
-domains:
-  - name: Understand Usage and Cost
-    capabilities:
-      - Data Ingestion
-      - Allocation
-      - Reporting and Analytics
-      - Anomaly Management
-  - name: Quantify Business Value
-    capabilities:
-      - Planning and Estimating
-      - Forecasting
-      - Budgeting
-      - Benchmarking
-      - Unit Economics
-  - name: Optimize Usage and Cost
-    capabilities:
-      - Architecting for Cloud
-      - Rate Optimization
-      - Workload Optimization
-      - Cloud Sustainability
-      - Licensing and SaaS
-  - name: Manage the FinOps Practice
-    capabilities:
-      - FinOps Practice Operations
-      - FinOps Education and Enablement
-      - Invoicing and Chargeback
-      - Onboarding Workloads
-      - Intersecting Disciplines
+publisherName: ASC X12 (standard) / VAN or EDI-platform vendor (commercial)
+serviceCategory: EDI
 billingModel:
-  pricingCategory: Usage-Based
+  pricingCategory: Subscription + Usage
   billingFrequency: Monthly
   billingCurrency: USD
   chargeCategories:
     - Usage
     - Purchase
-    - Tax
-    - Credit
     - Adjustment
-  chargeFrequency: Recurring
 focusColumns:
-  ServiceName: edi-214
-  ServiceCategory: Developer Tools / API
-  ProviderName: edi-214
-  PublisherName: edi-214
-  InvoiceIssuerName: edi-214
-  PricingCategory: Usage-Based
-  PricingUnit: request
+  ServiceName: EDI 214 Shipment Status
+  ServiceCategory: EDI
+  ProviderName: ASC X12 / vendor of choice
+  PublisherName: ASC X12 / vendor of choice
+  InvoiceIssuerName: vendor of choice
   BillingCurrency: USD
-  ChargeCategory: Usage
 meters:
-  - name: api_requests
-    description: Count of billable API requests
-    unit: request
+  - name: edi_214_documents
+    unit: document
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-      - region
-      - consumer
-  - name: data_egress
-    description: Bytes returned over the network in API responses
-    unit: GB
+      - direction
+      - trading_partner
+      - vendor
+  - name: trading_partner_connections
+    unit: partner
     aggregation: sum
     dimensions:
-      - api
-      - region
-      - consumer
-  - name: compute_seconds
-    description: Server-side compute consumed by the request, where applicable
-    unit: second
+      - vendor
+  - name: kc_kilo_characters
+    unit: KC
     aggregation: sum
     dimensions:
-      - api
-      - endpoint
-      - tier
-apis:
-  - name: EDI 214 Transportation Carrier Shipment Status Message
-    baseURL: https://edi-gateway.logistics-platform.example.com/api
-    tags:
-      - EDI
-      - Freight
-      - Logistics
-      - Shipment Tracking
-      - Transportation
-      - X12
-    serviceName: EDI 214 Transportation Carrier Shipment Status Message
-    serviceCategory: API
-  - name: Stedi EDI API (X12 214 Support)
-    baseURL: https://api.stedi.com
-    tags:
-      - EDI
-      - JSON
-      - Logistics
-      - REST
-      - Shipment Tracking
-      - X12
-    serviceName: Stedi EDI API (X12 214 Support)
-    serviceCategory: API
-  - name: Flexport EDI API (214 Air Shipment Status)
-    baseURL: https://api.flexport.com
-    tags:
-      - Air Freight
-      - EDI
-      - Logistics
-      - Shipment Tracking
-      - X12
-    serviceName: Flexport EDI API (214 Air Shipment Status)
-    serviceCategory: API
-unitEconomics:
-  - name: Cost per 1K Requests
-    metric: billed_cost / (api_requests / 1000)
-    target: TBD
-  - name: Cost per Active Consumer
-    metric: billed_cost / active_consumers
-    target: TBD
+      - vendor
+principles:
+  - name: Visibility
+    description: Pull document counts from the chosen EDI vendor (e.g., Stedi usage report, SPS dashboard);
+      reconcile against monthly invoice.
+  - name: Allocation
+    description: Tag 214 traffic by trading partner, mode (truckload, ocean, air), and originating supply-chain
+      node.
+  - name: Optimization
+    description: Consolidate trading partners onto a single VAN/platform to qualify for volume tiers;
+      avoid duplicate document submissions on retry; cache reference data.
+  - name: Accountability
+    description: Logistics IT owns the EDI vendor relationship; finance reviews per-document fees vs.
+      forecast.
 maintainers:
   - name: Kin Lane
     email: kin@apievangelist.com

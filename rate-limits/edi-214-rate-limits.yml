@@ -1,94 +1,47 @@
 specification: API Commons Rate Limits
 specificationVersion: '0.1'
 schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main/schema/api-commons.yml#/$defs/RateLimits
-provider: edi-214
+provider: EDI 214 (Transportation Carrier Shipment Status)
 providerId: edi-214
 created: '2026-05-04'
-modified: '2026-05-04'
+modified: '2026-05-05'
+reconciled: false
 tags:
   - Rate Limiting
-  - Quotas
-  - Throttling
-description: Machine-readable rate limit definitions for the edi-214 API surface. Captures per-tier quotas,
-  burst behavior, response signaling, and recovery semantics. Defaults are scaffold values to be replaced
-  with published provider limits.
-headers:
-  limit: X-RateLimit-Limit
-  remaining: X-RateLimit-Remaining
-  reset: X-RateLimit-Reset
-  retryAfter: Retry-After
-  policy: RateLimit-Policy
+  - EDI
+  - X12
+  - Logistics
+description: EDI 214 is a standard, not a single API; rate limits depend on the vendor moving the document
+  (VAN, EDI-as-a-Service platform, carrier portal). Stedi, Flexport, and SPS Commerce each enforce their
+  own throttles on REST endpoints used to submit and retrieve 214 documents.
+notes: No rate limit applies to the standard itself; consult the specific vendor's API rate-limit documentation.
+sources:
+  - https://www.stedi.com/
+  - https://developers.flexport.com/edi/
+  - https://www.spscommerce.com/
 responseCodes:
   throttled: 429
-  quotaExceeded: 429
   serviceUnavailable: 503
 limits:
-  - tier: free
-    name: Free Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 10
-    burst: 20
-    timeFrame: minute
-    applies:
-      - EDI 214 Transportation Carrier Shipment Status Message
-      - Stedi EDI API (X12 214 Support)
-      - Flexport EDI API (214 Air Shipment Status)
-  - tier: free
-    name: Free Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 1000
-    timeFrame: month
-    applies:
-      - EDI 214 Transportation Carrier Shipment Status Message
-      - Stedi EDI API (X12 214 Support)
-      - Flexport EDI API (214 Air Shipment Status)
-  - tier: professional
-    name: Professional Tier Default
-    scope: api-key
-    metric: requests_per_minute
-    limit: 100
-    burst: 200
-    timeFrame: minute
-    applies:
-      - EDI 214 Transportation Carrier Shipment Status Message
-      - Stedi EDI API (X12 214 Support)
-      - Flexport EDI API (214 Air Shipment Status)
-  - tier: professional
-    name: Professional Tier Monthly Quota
-    scope: api-key
-    metric: requests_per_month
-    limit: 100000
-    timeFrame: month
-    applies:
-      - EDI 214 Transportation Carrier Shipment Status Message
-      - Stedi EDI API (X12 214 Support)
-      - Flexport EDI API (214 Air Shipment Status)
-  - tier: enterprise
-    name: Enterprise Negotiated Limit
+  - name: Stedi REST API
+    scope: tenant
+    metric: varies
+    limit: see Stedi developer docs
+  - name: Flexport API
+    scope: tenant
+    metric: varies
+    limit: see Flexport API rate limits
+  - name: SPS Commerce VAN
     scope: contract
-    metric: requests_per_minute
-    limit: 1000
-    burst: 5000
-    timeFrame: minute
-    applies:
-      - EDI 214 Transportation Carrier Shipment Status Message
-      - Stedi EDI API (X12 214 Support)
-      - Flexport EDI API (214 Air Shipment Status)
+    metric: varies
+    limit: see SPS partner integration guide
 policies:
-  - name: Backoff Strategy
-    description: Clients should implement exponential backoff with jitter, honoring the Retry-After header
-      when present.
-  - name: Burst Handling
-    description: Short bursts above the steady-state limit are tolerated up to the documented burst ceiling
-      before throttling engages.
-  - name: Quota Reset
-    description: Monthly quotas reset at the start of each calendar month in UTC. Per-minute and per-second
-      windows reset on a sliding-window basis.
-  - name: Fair Use
-    description: Even on uncapped enterprise tiers, sustained usage that materially impacts shared infrastructure
-      may be subject to fair-use throttling.
+  - name: Vendor-specific throttling
+    description: Each EDI 214 implementer enforces its own throttle; consult the vendor's developer documentation.
+  - name: Backoff
+    description: Implement exponential backoff with jitter; honor Retry-After when present.
+  - name: VAN store-and-forward
+    description: VAN-based delivery is asynchronous; treat 214 transmission as eventual rather than synchronous.
 maintainers:
   - name: Kin Lane
     email: kin@apievangelist.com
