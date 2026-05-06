@@ -1,0 +1,258 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EDI 214 Transportation Carrier Shipment Status API
+  description: REST API interface for EDI X12 214 Transportation Carrier Shipment Status Message. The EDI 214 is an ANSI X12
+    standard used by transportation carriers to provide shippers, consignees, and agents with shipment status in terms of
+    dates, times, locations, route, and conveyance. Key segments include B10 (tracking identifier), MS1 (current location),
+    and AT7 (current status code). This API translates X12 214 segments into JSON for carrier status updates, delivery confirmations,
+    and exception reporting. Based on the Stedi EDI platform which provides comprehensive X12 214 tooling.
+  tags:
+  - Edi
+  - '214'
+  - API
+  created: '2026-05-06'
+  modified: '2026-05-06'
+capability:
+  consumes:
+  - type: http
+    namespace: edi-214
+    baseUri: https://api.stedi.com/2024-01-01
+    description: EDI 214 Transportation Carrier Shipment Status API HTTP API.
+    authentication:
+      type: apikey
+      in: header
+      name: Authorization
+      value: '{{EDI_214_TOKEN}}'
+    resources:
+    - name: edi-translate
+      path: /edi/translate
+      operations:
+      - name: translateedi214
+        method: POST
+        description: Translate EDI 214 document to JSON
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: edi-generate
+      path: /edi/generate
+      operations:
+      - name: generateedi214
+        method: POST
+        description: Generate EDI 214 document from JSON
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: shipments-trackingnumber-status
+      path: /shipments/{trackingNumber}/status
+      operations:
+      - name: postshipmentstatus
+        method: POST
+        description: Submit a shipment status update
+        inputParameters:
+        - name: trackingNumber
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: transactions
+      path: /transactions
+      operations:
+      - name: listtransactions
+        method: GET
+        description: List EDI 214 transactions
+        inputParameters:
+        - name: direction
+          in: query
+          type: string
+          description: Filter by transaction direction
+        - name: processedAfter
+          in: query
+          type: string
+          description: Filter transactions processed after this timestamp
+        - name: status
+          in: query
+          type: string
+        - name: limit
+          in: query
+          type: integer
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+    - name: transactions-transactionid
+      path: /transactions/{transactionId}
+      operations:
+      - name: gettransaction
+        method: GET
+        description: Get EDI 214 transaction details
+        inputParameters:
+        - name: transactionId
+          in: path
+          type: string
+          required: true
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+  exposes:
+  - type: rest
+    port: 8080
+    namespace: edi-214-rest
+    description: REST adapter for EDI 214 Transportation Carrier Shipment Status API.
+    resources:
+    - path: /edi/translate
+      name: translateedi214
+      operations:
+      - method: POST
+        name: translateedi214
+        description: Translate EDI 214 document to JSON
+        call: edi-214.translateedi214
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /edi/generate
+      name: generateedi214
+      operations:
+      - method: POST
+        name: generateedi214
+        description: Generate EDI 214 document from JSON
+        call: edi-214.generateedi214
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /shipments/{trackingNumber}/status
+      name: postshipmentstatus
+      operations:
+      - method: POST
+        name: postshipmentstatus
+        description: Submit a shipment status update
+        call: edi-214.postshipmentstatus
+        with:
+          trackingNumber: rest.trackingNumber
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /transactions
+      name: listtransactions
+      operations:
+      - method: GET
+        name: listtransactions
+        description: List EDI 214 transactions
+        call: edi-214.listtransactions
+        outputParameters:
+        - type: object
+          mapping: $.
+    - path: /transactions/{transactionId}
+      name: gettransaction
+      operations:
+      - method: GET
+        name: gettransaction
+        description: Get EDI 214 transaction details
+        call: edi-214.gettransaction
+        with:
+          transactionId: rest.transactionId
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    port: 9090
+    namespace: edi-214-mcp
+    transport: http
+    description: MCP adapter for EDI 214 Transportation Carrier Shipment Status API for AI agent use.
+    tools:
+    - name: translateedi214
+      description: Translate EDI 214 document to JSON
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: edi-214.translateedi214
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: generateedi214
+      description: Generate EDI 214 document from JSON
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: edi-214.generateedi214
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: postshipmentstatus
+      description: Submit a shipment status update
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: edi-214.postshipmentstatus
+      with:
+        trackingNumber: tools.trackingNumber
+      inputParameters:
+      - name: trackingNumber
+        type: string
+        description: trackingNumber
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: listtransactions
+      description: List EDI 214 transactions
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: edi-214.listtransactions
+      with:
+        direction: tools.direction
+        processedAfter: tools.processedAfter
+        status: tools.status
+        limit: tools.limit
+      inputParameters:
+      - name: direction
+        type: string
+        description: Filter by transaction direction
+      - name: processedAfter
+        type: string
+        description: Filter transactions processed after this timestamp
+      - name: status
+        type: string
+        description: status
+      - name: limit
+        type: integer
+        description: limit
+      outputParameters:
+      - type: object
+        mapping: $.
+    - name: gettransaction
+      description: Get EDI 214 transaction details
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: edi-214.gettransaction
+      with:
+        transactionId: tools.transactionId
+      inputParameters:
+      - name: transactionId
+        type: string
+        description: transactionId
+        required: true
+      outputParameters:
+      - type: object
+        mapping: $.
+binds:
+- namespace: env
+  keys:
+    EDI_214_TOKEN: EDI_214_TOKEN
