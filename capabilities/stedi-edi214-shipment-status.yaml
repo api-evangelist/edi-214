@@ -1,0 +1,89 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: EDI 214 Transportation Carrier Shipment Status API — Shipment Status
+  description: 'EDI 214 Transportation Carrier Shipment Status API — Shipment Status. 1 operations. Lead operation: Submit
+    a shipment status update. Self-contained Naftiko capability covering one Edi 214 business surface.'
+  tags:
+  - Edi 214
+  - Shipment Status
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    EDI_214_API_KEY: EDI_214_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: stedi-edi214-shipment-status
+    baseUri: https://api.stedi.com/2024-01-01
+    description: EDI 214 Transportation Carrier Shipment Status API — Shipment Status business capability. Self-contained,
+      no shared references.
+    resources:
+    - name: shipments-trackingNumber-status
+      path: /shipments/{trackingNumber}/status
+      operations:
+      - name: postshipmentstatus
+        method: POST
+        description: Submit a shipment status update
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: trackingNumber
+          in: path
+          type: string
+          required: true
+        - name: body
+          in: body
+          type: object
+          description: Request body (JSON).
+          required: true
+    authentication:
+      type: apikey
+      key: Authorization
+      value: '{{env.EDI_214_API_KEY}}'
+      placement: header
+  exposes:
+  - type: rest
+    namespace: stedi-edi214-shipment-status-rest
+    port: 8080
+    description: REST adapter for EDI 214 Transportation Carrier Shipment Status API — Shipment Status. One Spectral-compliant
+      resource per consumed operation, prefixed with /v1.
+    resources:
+    - path: /v1/shipments/{trackingnumber}/status
+      name: shipments-trackingnumber-status
+      description: REST surface for shipments-trackingNumber-status.
+      operations:
+      - method: POST
+        name: postshipmentstatus
+        description: Submit a shipment status update
+        call: stedi-edi214-shipment-status.postshipmentstatus
+        with:
+          trackingNumber: rest.trackingNumber
+          body: rest.body
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: stedi-edi214-shipment-status-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for EDI 214 Transportation Carrier Shipment Status API — Shipment Status. One tool per consumed
+      operation, routed inline through this capability's consumes block.
+    tools:
+    - name: submit-shipment-status-update
+      description: Submit a shipment status update
+      hints:
+        readOnly: false
+        destructive: false
+        idempotent: false
+      call: stedi-edi214-shipment-status.postshipmentstatus
+      with:
+        trackingNumber: tools.trackingNumber
+        body: tools.body
+      outputParameters:
+      - type: object
+        mapping: $.
