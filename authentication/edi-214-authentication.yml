@@ -1,0 +1,16 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/stedi-edi214-openapi.yml
+summary:
+  types:
+  - apiKey
+  api_key_in:
+  - header
+schemes:
+- name: apiKey
+  type: apiKey
+  in: header
+  parameter: Authorization
+  description: API key in format "Key {your_api_key}" for Stedi platform access
+  sources:
+  - openapi/stedi-edi214-openapi.yml

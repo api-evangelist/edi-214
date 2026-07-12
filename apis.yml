@@ -72,6 +72,10 @@ apis:
       Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status using X12 4010 format.
       Enables air freight status tracking integration with Flexport's logistics platform.
 common:
+  - type: DomainSecurity
+    url: security/edi-214-domain-security.yml
+  - type: Authentication
+    url: authentication/edi-214-authentication.yml
   - url: https://x12.org/
     type: Website
   - url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/openapi/stedi-edi214-openapi.yml
@@ -91,6 +95,8 @@ common:
     type: GettingStarted
   - url: https://www.stedi.com/edi/inspector
     type: DeveloperTools
+  - url: https://x12.org/rss.xml
+    type: Blog
 maintainers:
   - name: Kin Lane
     email: kin@apievangelist.com
