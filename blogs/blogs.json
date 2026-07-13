@@ -1,0 +1,14 @@
+{
+  "repo": "edi-214",
+  "feeds": [
+    {
+      "source": "https://x12.org/rss.xml",
+      "feed_url": "https://x12.org/rss.xml",
+      "title": "",
+      "saved": 0,
+      "method": "feed"
+    }
+  ],
+  "fetched": "2026-07-11T11:50:51Z",
+  "post_count": 24
+}
