@@ -72,6 +72,8 @@ apis:
       Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status using X12 4010 format.
       Enables air freight status tracking integration with Flexport's logistics platform.
 common:
+  - type: AgenticAccess
+    url: agentic-access/edi-214-agentic-access.yml
   - type: DomainSecurity
     url: security/edi-214-domain-security.yml
   - type: Authentication
