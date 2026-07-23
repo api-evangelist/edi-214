@@ -1,0 +1,108 @@
+openapi: 3.1.0
+info:
+  title: EDI 214 Transportation Carrier EDI Processing Shipment Status API
+  description: REST API interface for EDI X12 214 Transportation Carrier Shipment Status Message. The EDI 214 is an ANSI X12 standard used by transportation carriers to provide shippers, consignees, and agents with shipment status in terms of dates, times, locations, route, and conveyance. Key segments include B10 (tracking identifier), MS1 (current location), and AT7 (current status code). This API translates X12 214 segments into JSON for carrier status updates, delivery confirmations, and exception reporting. Based on the Stedi EDI platform which provides comprehensive X12 214 tooling.
+  version: 1.0.0
+  contact:
+    name: Stedi Support
+    url: https://www.stedi.com/
+  license:
+    name: X12 License
+    url: https://x12.org/
+servers:
+- url: https://api.stedi.com/2024-01-01
+  description: Stedi EDI API
+- url: https://edi-gateway.logistics-platform.example.com/api
+  description: Generic EDI-to-HTTP Gateway
+security:
+- apiKey: []
+tags:
+- name: Shipment Status
+  description: EDI 214 shipment status events and tracking
+paths:
+  /shipments/{trackingNumber}/status:
+    post:
+      operationId: postShipmentStatus
+      summary: Submit a shipment status update
+      description: Allows carriers to POST a shipment status update (equivalent to sending an EDI 214). Accepts JSON status event data which is stored and forwarded to subscribed parties.
+      tags:
+      - Shipment Status
+      parameters:
+      - name: trackingNumber
+        in: path
+        required: true
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ShipmentStatusEvent'
+      responses:
+        '201':
+          description: Status event recorded
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ShipmentStatusEvent'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+components:
+  responses:
+    BadRequest:
+      description: Invalid EDI document or request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  schemas:
+    StatusLocation:
+      type: object
+      properties:
+        city:
+          type: string
+        state:
+          type: string
+        zipCode:
+          type: string
+        country:
+          type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+    ShipmentStatusEvent:
+      type: object
+      required:
+      - trackingNumber
+      - scac
+      - statusCode
+      - eventDateTime
+      properties:
+        trackingNumber:
+          type: string
+        scac:
+          type: string
+        statusCode:
+          type: string
+        reasonCode:
+          type: string
+        eventDateTime:
+          type: string
+          format: date-time
+        location:
+          $ref: '#/components/schemas/StatusLocation'
+        equipmentNumber:
+          type: string
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API key in format "Key {your_api_key}" for Stedi platform access

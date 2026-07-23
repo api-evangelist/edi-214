@@ -1,0 +1,366 @@
+openapi: 3.1.0
+info:
+  title: EDI 214 Transportation Carrier Shipment Status EDI Processing Transactions API
+  description: REST API interface for EDI X12 214 Transportation Carrier Shipment Status Message. The EDI 214 is an ANSI X12 standard used by transportation carriers to provide shippers, consignees, and agents with shipment status in terms of dates, times, locations, route, and conveyance. Key segments include B10 (tracking identifier), MS1 (current location), and AT7 (current status code). This API translates X12 214 segments into JSON for carrier status updates, delivery confirmations, and exception reporting. Based on the Stedi EDI platform which provides comprehensive X12 214 tooling.
+  version: 1.0.0
+  contact:
+    name: Stedi Support
+    url: https://www.stedi.com/
+  license:
+    name: X12 License
+    url: https://x12.org/
+servers:
+- url: https://api.stedi.com/2024-01-01
+  description: Stedi EDI API
+- url: https://edi-gateway.logistics-platform.example.com/api
+  description: Generic EDI-to-HTTP Gateway
+security:
+- apiKey: []
+tags:
+- name: Transactions
+  description: X12 transaction set management
+paths:
+  /transactions:
+    get:
+      operationId: listTransactions
+      summary: List EDI 214 transactions
+      description: Returns a list of EDI 214 transactions processed through the gateway.
+      tags:
+      - Transactions
+      parameters:
+      - name: direction
+        in: query
+        description: Filter by transaction direction
+        schema:
+          type: string
+          enum:
+          - INBOUND
+          - OUTBOUND
+      - name: processedAfter
+        in: query
+        description: Filter transactions processed after this timestamp
+        schema:
+          type: string
+          format: date-time
+      - name: status
+        in: query
+        schema:
+          type: string
+          enum:
+          - PROCESSED
+          - FAILED
+          - PENDING
+          - ACKNOWLEDGED
+      - name: limit
+        in: query
+        schema:
+          type: integer
+          default: 50
+      responses:
+        '200':
+          description: List of transactions
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TransactionList'
+  /transactions/{transactionId}:
+    get:
+      operationId: getTransaction
+      summary: Get EDI 214 transaction details
+      description: Returns the full parsed content of a specific EDI 214 transaction.
+      tags:
+      - Transactions
+      parameters:
+      - name: transactionId
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Transaction details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Edi214Document'
+        '404':
+          $ref: '#/components/responses/NotFound'
+components:
+  schemas:
+    Ms1Segment:
+      type: object
+      description: MS1 - Equipment, Shipment, or Real Property Location
+      properties:
+        cityName:
+          type: string
+          description: MS1:01 - City name of current location
+          example: Dallas
+        stateOrProvinceCode:
+          type: string
+          description: MS1:02 - State or province code
+          example: TX
+        countryCode:
+          type: string
+          description: MS1:03 - Country code
+          pattern: ^[A-Z]{2}$
+        longitudeCode:
+          type: string
+          description: MS1:04 - Longitude in degrees/minutes (DDDMM.MM format)
+        latitudeCode:
+          type: string
+          description: MS1:05 - Latitude in degrees/minutes (DDMM.MM format)
+        directionIdentifierCode:
+          type: string
+          description: MS1:06 - Hemisphere direction for longitude (E/W)
+          enum:
+          - E
+          - W
+        directionIdentifierCodeLatitude:
+          type: string
+          description: MS1:07 - Hemisphere direction for latitude (N/S)
+          enum:
+          - N
+          - S
+    TransactionList:
+      type: object
+      properties:
+        total:
+          type: integer
+        transactions:
+          type: array
+          items:
+            type: object
+            properties:
+              transactionId:
+                type: string
+              direction:
+                type: string
+                enum:
+                - INBOUND
+                - OUTBOUND
+              status:
+                type: string
+              processedAt:
+                type: string
+                format: date-time
+              trackingNumber:
+                type: string
+              scac:
+                type: string
+    B10Segment:
+      type: object
+      description: B10 - Beginning Segment for Transportation Carrier Shipment Status Message
+      properties:
+        referenceIdentification:
+          type: string
+          description: B10:01 - Reference identification number (carrier tracking/PRO number)
+          example: '1234567890'
+        shipmentIdentificationNumber:
+          type: string
+          description: B10:02 - Carrier-assigned shipment identification number
+        scac:
+          type: string
+          description: B10:03 - Standard Carrier Alpha Code
+          example: FXFE
+          minLength: 2
+          maxLength: 4
+        inquiryRequestNumber:
+          type: string
+          description: B10:04 - Inquiry request number (for response to 213)
+    Edi214Document:
+      type: object
+      description: Parsed representation of an X12 EDI 214 transaction set
+      properties:
+        transactionSetId:
+          type: string
+          description: Transaction set control number (ST:02)
+          example: '0001'
+        interchangeControlNumber:
+          type: string
+          description: ISA control number
+        functionalGroupId:
+          type: string
+          description: GS control number
+        sender:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ISA sender ID
+            qualifier:
+              type: string
+        receiver:
+          type: object
+          properties:
+            id:
+              type: string
+            qualifier:
+              type: string
+        header:
+          $ref: '#/components/schemas/B10Segment'
+        shipmentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/LxLoop'
+    Ms2Segment:
+      type: object
+      description: MS2 - Equipment or Container Owner and Type
+      properties:
+        standardCarrierAlphaCode:
+          type: string
+          description: MS2:01 - Equipment owner SCAC
+          example: FXFE
+        equipmentNumber:
+          type: string
+          description: MS2:02 - Equipment/trailer number
+          example: AB102
+        equipmentDescriptionCode:
+          type: string
+          description: MS2:03 - Type of equipment
+          enum:
+          - '01'
+          - '02'
+          - '11'
+          - '12'
+          - AB
+          - TA
+          - TL
+          - CN
+          - TR
+    Q2Segment:
+      type: object
+      description: Q2 - Status Details (Weight, quantity, lading details)
+      properties:
+        lading:
+          type: number
+          description: Q2:02 - Weight in pounds
+        weightUnitCode:
+          type: string
+          description: Q2:03 - Weight unit code
+          enum:
+          - L
+          - K
+          - N
+        packageCount:
+          type: integer
+          description: Q2:05 - Number of packages
+        packagingFormCode:
+          type: string
+          description: Q2:06 - Packaging form code
+    LxLoop:
+      type: object
+      description: LX detail loop containing status events for a shipment segment
+      properties:
+        lxAssignedNumber:
+          type: integer
+          description: LX:01 - Assigned number for each detail loop
+        statusEvents:
+          type: array
+          description: AT7 status events in this LX loop
+          items:
+            $ref: '#/components/schemas/At7Segment'
+        currentLocation:
+          $ref: '#/components/schemas/Ms1Segment'
+        equipmentDetails:
+          $ref: '#/components/schemas/Ms2Segment'
+        shipmentQuantity:
+          $ref: '#/components/schemas/Q2Segment'
+    At7Segment:
+      type: object
+      description: AT7 - Shipment Status Details segment
+      properties:
+        shipmentStatusCode:
+          type: string
+          description: AT7:01 - Shipment status code
+          examples:
+          - X3
+          - D1
+          - AF
+          - X1
+          - OA
+          - AG
+          - P1
+          - CD
+          enum:
+          - X3
+          - D1
+          - AF
+          - X1
+          - OA
+          - AG
+          - P1
+          - CD
+          - X6
+        statusReasonCode:
+          type: string
+          description: AT7:02 - Status reason code (why status occurred)
+          examples:
+          - NS
+          - RR
+          - CP
+          - NA
+          - AG
+        appointmentStatusCode:
+          type: string
+          description: AT7:03 - Appointment status code
+        appointmentReasonCode:
+          type: string
+          description: AT7:04 - Appointment reason code
+        date:
+          type: string
+          description: AT7:05 - Date of status event (CCYYMMDD)
+          pattern: ^[0-9]{8}$
+          example: '20260318'
+        time:
+          type: string
+          description: AT7:06 - Time of status event (HHMM)
+          pattern: ^[0-9]{4}$
+          example: '1200'
+        timeCode:
+          type: string
+          description: AT7:07 - Time zone code
+          enum:
+          - ET
+          - CT
+          - MT
+          - PT
+          - AT
+          - HT
+          - UT
+          - AD
+          - BD
+          - CD
+          - DD
+          - ED
+          - FD
+          - GD
+          - HD
+          - ID
+          - JD
+          - KD
+          - LD
+          - MD
+          - ND
+          - OD
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+  responses:
+    NotFound:
+      description: Shipment or transaction not found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: API key in format "Key {your_api_key}" for Stedi platform access
