@@ -1,0 +1,18 @@
+{
+  "provider": "edi-214",
+  "sources": [
+    "edi-214-edi-processing-api-openapi.yml",
+    "edi-214-shipment-status-api-openapi.yml",
+    "edi-214-transactions-api-openapi.yml"
+  ],
+  "outputs": [
+    "edi-214-edi-processing-api-openapi.yml",
+    "edi-214-shipment-status-api-openapi.yml",
+    "edi-214-transactions-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
