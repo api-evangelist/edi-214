@@ -1,0 +1,387 @@
+{
+  "item": [
+    {
+      "id": "f300d52a-39f4-46d3-977d-b2560b7190cc",
+      "name": "EDI Processing",
+      "description": {
+        "content": "EDI document parsing and generation",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "cf99c96a-b821-4dac-9ec2-3b0c888b3081",
+          "name": "Translate EDI 214 document to JSON",
+          "request": {
+            "name": "Translate EDI 214 document to JSON",
+            "description": {
+              "content": "Accepts a raw X12 EDI 214 document and returns the parsed data as a structured JSON object. Maps all 214 segments including B10, LX, AT7, MS1, MS2, and Q2 loops.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "edi",
+                "translate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "text/plain"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "<string>"
+            }
+          },
+          "response": [
+            {
+              "id": "633fbc68-ad9b-4fee-9f9f-73a824caca20",
+              "name": "Parsed EDI 214 JSON",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edi",
+                    "translate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "ISA*00*          *00*          *ZZ*CARRIER123456789*ZZ*SHIPPER        *260318*1200*^*00501*000000001*0*P*>~GS*QM*CARRIER*SHIPPER*20260318*1200*1*X*005010X214~ST*214*0001~B10*1234567890*1234567890*FXFE~L11*PO123456*PO~AT7*X3*NS***20260318*1200*ET~MS1*Dallas*TX**075290*0966400*W*N~MS2*FXFE*AB102~SE*6*0001~GE*1*1~IEA*1*000000001~"
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionSetId\": \"0001\",\n  \"interchangeControlNumber\": \"string\",\n  \"functionalGroupId\": \"string\",\n  \"sender\": {\n    \"id\": \"string\",\n    \"qualifier\": \"string\"\n  },\n  \"receiver\": {\n    \"id\": \"string\",\n    \"qualifier\": \"string\"\n  },\n  \"header\": {\n    \"referenceIdentification\": \"1234567890\",\n    \"shipmentIdentificationNumber\": \"string\",\n    \"scac\": \"FXFE\",\n    \"inquiryRequestNumber\": \"string\"\n  },\n  \"shipmentGroups\": [\n    {\n      \"lxAssignedNumber\": 9203,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"ED\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"OD\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"XA\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"W\",\n        \"directionIdentifierCodeLatitude\": \"N\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"01\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 867.7717240096094,\n        \"weightUnitCode\": \"K\",\n        \"packageCount\": 3793,\n        \"packagingFormCode\": \"string\"\n      }\n    },\n    {\n      \"lxAssignedNumber\": 9265,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"CT\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"DD\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"LK\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"W\",\n        \"directionIdentifierCodeLatitude\": \"S\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"12\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 4603.171968480683,\n        \"weightUnitCode\": \"N\",\n        \"packageCount\": 700,\n        \"packagingFormCode\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "80a6f8e7-dbb7-4174-ba96-99f41aa58370",
+              "name": "Invalid EDI document or request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edi",
+                    "translate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "ISA*00*          *00*          *ZZ*CARRIER123456789*ZZ*SHIPPER        *260318*1200*^*00501*000000001*0*P*>~GS*QM*CARRIER*SHIPPER*20260318*1200*1*X*005010X214~ST*214*0001~B10*1234567890*1234567890*FXFE~L11*PO123456*PO~AT7*X3*NS***20260318*1200*ET~MS1*Dallas*TX**075290*0966400*W*N~MS2*FXFE*AB102~SE*6*0001~GE*1*1~IEA*1*000000001~"
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "229c4386-36b8-48e8-ae2d-ea097b7aad85",
+              "name": "Missing or invalid API key",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edi",
+                    "translate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "ISA*00*          *00*          *ZZ*CARRIER123456789*ZZ*SHIPPER        *260318*1200*^*00501*000000001*0*P*>~GS*QM*CARRIER*SHIPPER*20260318*1200*1*X*005010X214~ST*214*0001~B10*1234567890*1234567890*FXFE~L11*PO123456*PO~AT7*X3*NS***20260318*1200*ET~MS1*Dallas*TX**075290*0966400*W*N~MS2*FXFE*AB102~SE*6*0001~GE*1*1~IEA*1*000000001~"
+                }
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "3c260baa-f881-41db-b1f4-2ca186078635",
+          "name": "Generate EDI 214 document from JSON",
+          "request": {
+            "name": "Generate EDI 214 document from JSON",
+            "description": {
+              "content": "Accepts structured JSON representing shipment status events and generates a valid X12 EDI 214 document. Used by carriers to transmit status updates to shippers and 3PLs.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "edi",
+                "generate"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "text/plain"
+              }
+            ],
+            "method": "POST",
+            "auth": null,
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"sender\": {\n    \"id\": \"<string>\",\n    \"qualifier\": \"<string>\"\n  },\n  \"receiver\": {\n    \"id\": \"<string>\",\n    \"qualifier\": \"<string>\"\n  },\n  \"header\": {\n    \"referenceIdentification\": \"<string>\",\n    \"shipmentIdentificationNumber\": \"<string>\",\n    \"scac\": \"<string>\",\n    \"inquiryRequestNumber\": \"<string>\"\n  },\n  \"shipmentGroups\": [\n    {\n      \"lxAssignedNumber\": \"<integer>\",\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"<string>\",\n          \"statusReasonCode\": \"<string>\",\n          \"appointmentStatusCode\": \"<string>\",\n          \"appointmentReasonCode\": \"<string>\",\n          \"date\": \"<string>\",\n          \"time\": \"<string>\",\n          \"timeCode\": \"<string>\"\n        },\n        {\n          \"shipmentStatusCode\": \"<string>\",\n          \"statusReasonCode\": \"<string>\",\n          \"appointmentStatusCode\": \"<string>\",\n          \"appointmentReasonCode\": \"<string>\",\n          \"date\": \"<string>\",\n          \"time\": \"<string>\",\n          \"timeCode\": \"<string>\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"<string>\",\n        \"stateOrProvinceCode\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"longitudeCode\": \"<string>\",\n        \"latitudeCode\": \"<string>\",\n        \"directionIdentifierCode\": \"<string>\",\n        \"directionIdentifierCodeLatitude\": \"<string>\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"<string>\",\n        \"equipmentNumber\": \"<string>\",\n        \"equipmentDescriptionCode\": \"<string>\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": \"<number>\",\n        \"weightUnitCode\": \"<string>\",\n        \"packageCount\": \"<integer>\",\n        \"packagingFormCode\": \"<string>\"\n      }\n    },\n    {\n      \"lxAssignedNumber\": \"<integer>\",\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"<string>\",\n          \"statusReasonCode\": \"<string>\",\n          \"appointmentStatusCode\": \"<string>\",\n          \"appointmentReasonCode\": \"<string>\",\n          \"date\": \"<string>\",\n          \"time\": \"<string>\",\n          \"timeCode\": \"<string>\"\n        },\n        {\n          \"shipmentStatusCode\": \"<string>\",\n          \"statusReasonCode\": \"<string>\",\n          \"appointmentStatusCode\": \"<string>\",\n          \"appointmentReasonCode\": \"<string>\",\n          \"date\": \"<string>\",\n          \"time\": \"<string>\",\n          \"timeCode\": \"<string>\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"<string>\",\n        \"stateOrProvinceCode\": \"<string>\",\n        \"countryCode\": \"<string>\",\n        \"longitudeCode\": \"<string>\",\n        \"latitudeCode\": \"<string>\",\n        \"directionIdentifierCode\": \"<string>\",\n        \"directionIdentifierCodeLatitude\": \"<string>\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"<string>\",\n        \"equipmentNumber\": \"<string>\",\n        \"equipmentDescriptionCode\": \"<string>\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": \"<number>\",\n        \"weightUnitCode\": \"<string>\",\n        \"packageCount\": \"<integer>\",\n        \"packagingFormCode\": \"<string>\"\n      }\n    }\n  ]\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            }
+          },
+          "response": [
+            {
+              "id": "5bf15c94-c7c9-4364-8ba7-e5b18552d6c1",
+              "name": "Generated X12 EDI 214 document",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edi",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "text/plain"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sender\": {\n    \"id\": \"<string>\",\n    \"qualifier\": \"<string>\"\n  },\n  \"receiver\": {\n    \"id\": \"<string>\",\n    \"qualifier\": \"<string>\"\n  },\n  \"header\": {\n    \"referenceIdentification\": \"1234567890\",\n    \"shipmentIdentificationNumber\": \"string\",\n    \"scac\": \"FXFE\",\n    \"inquiryRequestNumber\": \"string\"\n  },\n  \"shipmentGroups\": [\n    {\n      \"lxAssignedNumber\": 1532,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"AT\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"JD\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"KY\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"W\",\n        \"directionIdentifierCodeLatitude\": \"N\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"CN\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 4927.130930533814,\n        \"weightUnitCode\": \"L\",\n        \"packageCount\": 5978,\n        \"packagingFormCode\": \"string\"\n      }\n    },\n    {\n      \"lxAssignedNumber\": 5500,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"LD\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"LD\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"IS\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"E\",\n        \"directionIdentifierCodeLatitude\": \"S\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"01\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 8886.958058855442,\n        \"weightUnitCode\": \"N\",\n        \"packageCount\": 6561,\n        \"packagingFormCode\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "text/plain"
+                }
+              ],
+              "body": "string",
+              "cookie": [],
+              "_postman_previewlanguage": "text"
+            },
+            {
+              "id": "f437d819-5088-42bc-b522-14af6cdf59dd",
+              "name": "Invalid EDI document or request parameters",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "edi",
+                    "generate"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "POST",
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\n  \"sender\": {\n    \"id\": \"<string>\",\n    \"qualifier\": \"<string>\"\n  },\n  \"receiver\": {\n    \"id\": \"<string>\",\n    \"qualifier\": \"<string>\"\n  },\n  \"header\": {\n    \"referenceIdentification\": \"1234567890\",\n    \"shipmentIdentificationNumber\": \"string\",\n    \"scac\": \"FXFE\",\n    \"inquiryRequestNumber\": \"string\"\n  },\n  \"shipmentGroups\": [\n    {\n      \"lxAssignedNumber\": 1532,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"AT\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"JD\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"KY\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"W\",\n        \"directionIdentifierCodeLatitude\": \"N\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"CN\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 4927.130930533814,\n        \"weightUnitCode\": \"L\",\n        \"packageCount\": 5978,\n        \"packagingFormCode\": \"string\"\n      }\n    },\n    {\n      \"lxAssignedNumber\": 5500,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"LD\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"LD\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"IS\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"E\",\n        \"directionIdentifierCodeLatitude\": \"S\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"01\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 8886.958058855442,\n        \"weightUnitCode\": \"N\",\n        \"packageCount\": 6561,\n        \"packagingFormCode\": \"string\"\n      }\n    }\n  ]\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                }
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stedi.com/2024-01-01",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "a3cf5208-c9c7-4aa2-8968-ccaa29c1ad86",
+    "name": "EDI 214 Transportation Carrier Shipment Status EDI Processing API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API interface for EDI X12 214 Transportation Carrier Shipment Status Message. The EDI 214 is an ANSI X12 standard used by transportation carriers to provide shippers, consignees, and agents with shipment status in terms of dates, times, locations, route, and conveyance. Key segments include B10 (tracking identifier), MS1 (current location), and AT7 (current status code). This API translates X12 214 segments into JSON for carrier status updates, delivery confirmations, and exception reporting. Based on the Stedi EDI platform which provides comprehensive X12 214 tooling.\n\nContact Support:\n Name: Stedi Support",
+      "type": "text/plain"
+    }
+  }
+}

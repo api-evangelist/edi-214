@@ -1,0 +1,52 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "EDI 214 Transportation Carrier Shipment Status EDI Processing API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "Authorization",
+      "value": "{{Authorization}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "EDI Processing",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Translate EDI 214 document to JSON",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.stedi.com/2024-01-01/edi/translate"
+          },
+          "docs": "Accepts a raw X12 EDI 214 document and returns the parsed data as a structured JSON object. Maps all 214 segments including B10, LX, AT7, MS1, MS2, and Q2 loops."
+        },
+        {
+          "info": {
+            "name": "Generate EDI 214 document from JSON",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.stedi.com/2024-01-01/edi/generate",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Accepts structured JSON representing shipment status events and generates a valid X12 EDI 214 document. Used by carriers to transmit status updates to shippers and 3PLs."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

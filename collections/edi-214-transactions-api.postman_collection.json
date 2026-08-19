@@ -1,0 +1,315 @@
+{
+  "item": [
+    {
+      "id": "a4b35e28-87c7-45f5-b985-71a4c5eed1da",
+      "name": "Transactions",
+      "description": {
+        "content": "X12 transaction set management",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "4c391070-c1a9-490d-ae5f-7dadeb97faef",
+          "name": "List EDI 214 transactions",
+          "request": {
+            "name": "List EDI 214 transactions",
+            "description": {
+              "content": "Returns a list of EDI 214 transactions processed through the gateway.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "direction",
+                  "value": "<string>",
+                  "description": "Filter by transaction direction"
+                },
+                {
+                  "disabled": false,
+                  "key": "processedAfter",
+                  "value": "<dateTime>",
+                  "description": "Filter transactions processed after this timestamp"
+                },
+                {
+                  "disabled": false,
+                  "key": "status",
+                  "value": "<string>"
+                },
+                {
+                  "disabled": false,
+                  "key": "limit",
+                  "value": "50"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "8fe8f930-37fb-491d-b46b-2bc0fce220fb",
+              "name": "List of transactions",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "direction",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "processedAfter",
+                      "value": "<dateTime>"
+                    },
+                    {
+                      "key": "status",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "limit",
+                      "value": "50"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"total\": 1397,\n  \"transactions\": [\n    {\n      \"transactionId\": \"string\",\n      \"direction\": \"OUTBOUND\",\n      \"status\": \"string\",\n      \"processedAt\": \"1990-10-20T22:26:19.853Z\",\n      \"trackingNumber\": \"string\",\n      \"scac\": \"string\"\n    },\n    {\n      \"transactionId\": \"string\",\n      \"direction\": \"INBOUND\",\n      \"status\": \"string\",\n      \"processedAt\": \"2011-04-01T17:07:43.173Z\",\n      \"trackingNumber\": \"string\",\n      \"scac\": \"string\"\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        },
+        {
+          "id": "4db0056d-f834-41aa-a53b-4f1ee98b812b",
+          "name": "Get EDI 214 transaction details",
+          "request": {
+            "name": "Get EDI 214 transaction details",
+            "description": {
+              "content": "Returns the full parsed content of a specific EDI 214 transaction.",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "transactions",
+                ":transactionId"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [],
+              "variable": [
+                {
+                  "disabled": false,
+                  "type": "any",
+                  "value": "<string>",
+                  "key": "transactionId",
+                  "description": "(Required) "
+                }
+              ]
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "d153afda-2c39-4061-a51b-c1b8d916f4eb",
+              "name": "Transaction details",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"transactionSetId\": \"0001\",\n  \"interchangeControlNumber\": \"string\",\n  \"functionalGroupId\": \"string\",\n  \"sender\": {\n    \"id\": \"string\",\n    \"qualifier\": \"string\"\n  },\n  \"receiver\": {\n    \"id\": \"string\",\n    \"qualifier\": \"string\"\n  },\n  \"header\": {\n    \"referenceIdentification\": \"1234567890\",\n    \"shipmentIdentificationNumber\": \"string\",\n    \"scac\": \"FXFE\",\n    \"inquiryRequestNumber\": \"string\"\n  },\n  \"shipmentGroups\": [\n    {\n      \"lxAssignedNumber\": 2456,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"AT\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"OD\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"NA\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"W\",\n        \"directionIdentifierCodeLatitude\": \"N\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"TA\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 2929.678366713653,\n        \"weightUnitCode\": \"K\",\n        \"packageCount\": 2096,\n        \"packagingFormCode\": \"string\"\n      }\n    },\n    {\n      \"lxAssignedNumber\": 4990,\n      \"statusEvents\": [\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"JD\"\n        },\n        {\n          \"shipmentStatusCode\": \"X3\",\n          \"statusReasonCode\": \"NS\",\n          \"appointmentStatusCode\": \"string\",\n          \"appointmentReasonCode\": \"string\",\n          \"date\": \"20260318\",\n          \"time\": \"1200\",\n          \"timeCode\": \"ET\"\n        }\n      ],\n      \"currentLocation\": {\n        \"cityName\": \"Dallas\",\n        \"stateOrProvinceCode\": \"TX\",\n        \"countryCode\": \"ED\",\n        \"longitudeCode\": \"string\",\n        \"latitudeCode\": \"string\",\n        \"directionIdentifierCode\": \"W\",\n        \"directionIdentifierCodeLatitude\": \"N\"\n      },\n      \"equipmentDetails\": {\n        \"standardCarrierAlphaCode\": \"FXFE\",\n        \"equipmentNumber\": \"AB102\",\n        \"equipmentDescriptionCode\": \"11\"\n      },\n      \"shipmentQuantity\": {\n        \"lading\": 6263.9859526447835,\n        \"weightUnitCode\": \"L\",\n        \"packageCount\": 1845,\n        \"packagingFormCode\": \"string\"\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "cb771a44-20a3-4ede-a2fa-d1e3031de694",
+              "name": "Shipment or transaction not found",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "transactions",
+                    ":transactionId"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [],
+                  "variable": [
+                    {
+                      "disabled": false,
+                      "type": "any",
+                      "value": "<string>",
+                      "key": "transactionId",
+                      "description": "(Required) "
+                    }
+                  ]
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Not Found",
+              "code": 404,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"code\": \"string\",\n  \"message\": \"string\",\n  \"details\": \"string\"\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.stedi.com/2024-01-01",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "Authorization"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "0424bd5f-f4d5-40c5-9381-05a123f0156a",
+    "name": "EDI 214 Transportation Carrier Shipment Status EDI Processing Transactions API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "REST API interface for EDI X12 214 Transportation Carrier Shipment Status Message. The EDI 214 is an ANSI X12 standard used by transportation carriers to provide shippers, consignees, and agents with shipment status in terms of dates, times, locations, route, and conveyance. Key segments include B10 (tracking identifier), MS1 (current location), and AT7 (current status code). This API translates X12 214 segments into JSON for carrier status updates, delivery confirmations, and exception reporting. Based on the Stedi EDI platform which provides comprehensive X12 214 tooling.\n\nContact Support:\n Name: Stedi Support",
+      "type": "text/plain"
+    }
+  }
+}
