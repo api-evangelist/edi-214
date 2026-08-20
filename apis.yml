@@ -101,6 +101,8 @@ apis:
   humanURL: https://x12.org/node/4214
   baseURL: https://edi-gateway.logistics-platform.example.com/api
   tags:
+  - Transaction
+  tags_raw:
   - Transactions
   properties:
   - type: OpenAPI
