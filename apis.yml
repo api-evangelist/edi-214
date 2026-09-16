@@ -47,11 +47,10 @@ apis:
     type: Reference
   - url: https://www.stedi.com/edi/inspector
     type: DeveloperTools
-  description: >-
-    Stedi provides a cloud EDI platform with comprehensive X12 214 documentation and tooling. The EDI
-    Inspector and JSONata Playground allow developers to parse, validate, and transform EDI 214 shipment
-    status messages. Stedi supports the full X12 transaction set with REST API integration for modern
-    supply chain applications.
+  description: Stedi provides a cloud EDI platform with comprehensive X12 214 documentation and tooling.
+    The EDI Inspector and JSONata Playground allow developers to parse, validate, and transform EDI 214
+    shipment status messages. Stedi supports the full X12 transaction set with REST API integration for
+    modern supply chain applications.
 - aid: edi-214:flexport-edi-api
   name: Flexport EDI API (214 Air Shipment Status)
   tags:
@@ -67,9 +66,8 @@ apis:
     type: Documentation
   - url: https://developers.flexport.com/edi/
     type: Portal
-  description: >-
-    Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status using X12 4010
-    format. Enables air freight status tracking integration with Flexport's logistics platform.
+  description: Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status
+    using X12 4010 format. Enables air freight status tracking integration with Flexport's logistics platform.
 - aid: edi-214:edi-214-edi-processing-api
   name: edi-214 EDI Processing API
   description: EDI document parsing and generation
@@ -127,37 +125,39 @@ apis:
   - type: GettingStarted
     url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
 common:
-  - type: AgenticAccess
-    url: agentic-access/edi-214-agentic-access.yml
-  - type: DomainSecurity
-    url: security/edi-214-domain-security.yml
-  - type: Authentication
-    url: authentication/edi-214-authentication.yml
-  - url: https://x12.org/
-    type: Website
-  - url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/openapi/stedi-edi214-openapi.yml
-    type: OpenAPI
-  - url: >-
-      https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-schema/edi-214-shipment-status-schema.json
-    type: JSONSchema
-  - url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-ld/edi-214-context.jsonld
-    type: JSONLDContext
-  - url: https://www.stedi.com/edi
-    type: Portal
-  - url: https://x12.org/node/4214
-    type: Documentation
-  - url: https://www.stedi.com/edi/x12/transaction-set/214
-    type: Reference
-  - url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
-    type: GettingStarted
-  - url: https://www.stedi.com/edi/inspector
-    type: DeveloperTools
-  - url: https://x12.org/rss.xml
-    type: Blog
+- type: AgenticAccess
+  url: agentic-access/edi-214-agentic-access.yml
+- type: DomainSecurity
+  url: security/edi-214-domain-security.yml
+- type: Authentication
+  url: authentication/edi-214-authentication.yml
+- url: https://x12.org/
+  type: Website
+- url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/openapi/stedi-edi214-openapi.yml
+  type: OpenAPI
+- url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-schema/edi-214-shipment-status-schema.json
+  type: JSONSchema
+- url: https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-ld/edi-214-context.jsonld
+  type: JSONLDContext
+- url: https://www.stedi.com/edi
+  type: Portal
+- url: https://x12.org/node/4214
+  type: Documentation
+- url: https://www.stedi.com/edi/x12/transaction-set/214
+  type: Reference
+- url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
+  type: GettingStarted
+- url: https://www.stedi.com/edi/inspector
+  type: DeveloperTools
+- url: https://x12.org/rss.xml
+  type: Blog
 maintainers:
-  - name: Kin Lane
-    email: kin@apievangelist.com
-modified: '2026-05-19'
-description: >-
-  Chartered by the American National Standards Institute for more than 40 years, X12 develops and maintains EDI
-  standards and XML schemas which drive business processes globally.
+- name: Kin Lane
+  email: kin@apievangelist.com
+modified: '2026-09-16'
+description: Chartered by the American National Standards Institute for more than 40 years, X12 develops
+  and maintains EDI standards and XML schemas which drive business processes globally.
+tags:
+- EDI
+- Logistics
+- Transaction
