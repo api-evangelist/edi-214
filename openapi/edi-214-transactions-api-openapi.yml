@@ -87,24 +87,6 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    LxLoop:
-      type: object
-      description: LX detail loop containing status events for a shipment segment
-      properties:
-        lxAssignedNumber:
-          type: integer
-          description: LX:01 - Assigned number for each detail loop
-        statusEvents:
-          type: array
-          description: AT7 status events in this LX loop
-          items:
-            $ref: '#/components/schemas/At7Segment'
-        currentLocation:
-          $ref: '#/components/schemas/Ms1Segment'
-        equipmentDetails:
-          $ref: '#/components/schemas/Ms2Segment'
-        shipmentQuantity:
-          $ref: '#/components/schemas/Q2Segment'
     Ms2Segment:
       type: object
       description: MS2 - Equipment or Container Owner and Type
@@ -130,95 +112,32 @@ components:
           - TL
           - CN
           - TR
-    Edi214Document:
+    TransactionList:
       type: object
-      description: Parsed representation of an X12 EDI 214 transaction set
       properties:
-        transactionSetId:
-          type: string
-          description: Transaction set control number (ST:02)
-          example: '0001'
-        interchangeControlNumber:
-          type: string
-          description: ISA control number
-        functionalGroupId:
-          type: string
-          description: GS control number
-        sender:
-          type: object
-          properties:
-            id:
-              type: string
-              description: ISA sender ID
-            qualifier:
-              type: string
-        receiver:
-          type: object
-          properties:
-            id:
-              type: string
-            qualifier:
-              type: string
-        header:
-          $ref: '#/components/schemas/B10Segment'
-        shipmentGroups:
+        total:
+          type: integer
+        transactions:
           type: array
           items:
-            $ref: '#/components/schemas/LxLoop'
-    B10Segment:
-      type: object
-      description: B10 - Beginning Segment for Transportation Carrier Shipment Status Message
-      properties:
-        referenceIdentification:
-          type: string
-          description: B10:01 - Reference identification number (carrier tracking/PRO number)
-          example: '1234567890'
-        shipmentIdentificationNumber:
-          type: string
-          description: B10:02 - Carrier-assigned shipment identification number
-        scac:
-          type: string
-          description: B10:03 - Standard Carrier Alpha Code
-          example: FXFE
-          minLength: 2
-          maxLength: 4
-        inquiryRequestNumber:
-          type: string
-          description: B10:04 - Inquiry request number (for response to 213)
-    Ms1Segment:
-      type: object
-      description: MS1 - Equipment, Shipment, or Real Property Location
-      properties:
-        cityName:
-          type: string
-          description: MS1:01 - City name of current location
-          example: Dallas
-        stateOrProvinceCode:
-          type: string
-          description: MS1:02 - State or province code
-          example: TX
-        countryCode:
-          type: string
-          description: MS1:03 - Country code
-          pattern: ^[A-Z]{2}$
-        longitudeCode:
-          type: string
-          description: MS1:04 - Longitude in degrees/minutes (DDDMM.MM format)
-        latitudeCode:
-          type: string
-          description: MS1:05 - Latitude in degrees/minutes (DDMM.MM format)
-        directionIdentifierCode:
-          type: string
-          description: MS1:06 - Hemisphere direction for longitude (E/W)
-          enum:
-          - E
-          - W
-        directionIdentifierCodeLatitude:
-          type: string
-          description: MS1:07 - Hemisphere direction for latitude (N/S)
-          enum:
-          - N
-          - S
+            type: object
+            properties:
+              transactionId:
+                type: string
+              direction:
+                type: string
+                enum:
+                - INBOUND
+                - OUTBOUND
+              status:
+                type: string
+              processedAt:
+                type: string
+                format: date-time
+              trackingNumber:
+                type: string
+              scac:
+                type: string
     At7Segment:
       type: object
       description: AT7 - Shipment Status Details segment
@@ -296,41 +215,6 @@ components:
           - MD
           - ND
           - OD
-    TransactionList:
-      type: object
-      properties:
-        total:
-          type: integer
-        transactions:
-          type: array
-          items:
-            type: object
-            properties:
-              transactionId:
-                type: string
-              direction:
-                type: string
-                enum:
-                - INBOUND
-                - OUTBOUND
-              status:
-                type: string
-              processedAt:
-                type: string
-                format: date-time
-              trackingNumber:
-                type: string
-              scac:
-                type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: string
     Q2Segment:
       type: object
       description: Q2 - Status Details (Weight, quantity, lading details)
@@ -351,6 +235,122 @@ components:
         packagingFormCode:
           type: string
           description: Q2:06 - Packaging form code
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+    Edi214Document:
+      type: object
+      description: Parsed representation of an X12 EDI 214 transaction set
+      properties:
+        transactionSetId:
+          type: string
+          description: Transaction set control number (ST:02)
+          example: '0001'
+        interchangeControlNumber:
+          type: string
+          description: ISA control number
+        functionalGroupId:
+          type: string
+          description: GS control number
+        sender:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ISA sender ID
+            qualifier:
+              type: string
+        receiver:
+          type: object
+          properties:
+            id:
+              type: string
+            qualifier:
+              type: string
+        header:
+          $ref: '#/components/schemas/B10Segment'
+        shipmentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/LxLoop'
+    LxLoop:
+      type: object
+      description: LX detail loop containing status events for a shipment segment
+      properties:
+        lxAssignedNumber:
+          type: integer
+          description: LX:01 - Assigned number for each detail loop
+        statusEvents:
+          type: array
+          description: AT7 status events in this LX loop
+          items:
+            $ref: '#/components/schemas/At7Segment'
+        currentLocation:
+          $ref: '#/components/schemas/Ms1Segment'
+        equipmentDetails:
+          $ref: '#/components/schemas/Ms2Segment'
+        shipmentQuantity:
+          $ref: '#/components/schemas/Q2Segment'
+    Ms1Segment:
+      type: object
+      description: MS1 - Equipment, Shipment, or Real Property Location
+      properties:
+        cityName:
+          type: string
+          description: MS1:01 - City name of current location
+          example: Dallas
+        stateOrProvinceCode:
+          type: string
+          description: MS1:02 - State or province code
+          example: TX
+        countryCode:
+          type: string
+          description: MS1:03 - Country code
+          pattern: ^[A-Z]{2}$
+        longitudeCode:
+          type: string
+          description: MS1:04 - Longitude in degrees/minutes (DDDMM.MM format)
+        latitudeCode:
+          type: string
+          description: MS1:05 - Latitude in degrees/minutes (DDMM.MM format)
+        directionIdentifierCode:
+          type: string
+          description: MS1:06 - Hemisphere direction for longitude (E/W)
+          enum:
+          - E
+          - W
+        directionIdentifierCodeLatitude:
+          type: string
+          description: MS1:07 - Hemisphere direction for latitude (N/S)
+          enum:
+          - N
+          - S
+    B10Segment:
+      type: object
+      description: B10 - Beginning Segment for Transportation Carrier Shipment Status Message
+      properties:
+        referenceIdentification:
+          type: string
+          description: B10:01 - Reference identification number (carrier tracking/PRO number)
+          example: '1234567890'
+        shipmentIdentificationNumber:
+          type: string
+          description: B10:02 - Carrier-assigned shipment identification number
+        scac:
+          type: string
+          description: B10:03 - Standard Carrier Alpha Code
+          example: FXFE
+          minLength: 2
+          maxLength: 4
+        inquiryRequestNumber:
+          type: string
+          description: B10:04 - Inquiry request number (for response to 213)
   responses:
     NotFound:
       description: Shipment or transaction not found
