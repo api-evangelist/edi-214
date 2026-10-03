@@ -49,13 +49,6 @@ paths:
         '400':
           $ref: '#/components/responses/BadRequest'
 components:
-  responses:
-    BadRequest:
-      description: Invalid EDI document or request parameters
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/Error'
   schemas:
     StatusLocation:
       type: object
@@ -100,6 +93,13 @@ components:
           type: string
         details:
           type: string
+  responses:
+    BadRequest:
+      description: Invalid EDI document or request parameters
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Error'
   securitySchemes:
     apiKey:
       type: apiKey

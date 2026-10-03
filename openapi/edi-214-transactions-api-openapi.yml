@@ -87,31 +87,88 @@ paths:
           $ref: '#/components/responses/NotFound'
 components:
   schemas:
-    Ms2Segment:
+    Error:
       type: object
-      description: MS2 - Equipment or Container Owner and Type
       properties:
-        standardCarrierAlphaCode:
+        code:
           type: string
-          description: MS2:01 - Equipment owner SCAC
+        message:
+          type: string
+        details:
+          type: string
+    LxLoop:
+      type: object
+      description: LX detail loop containing status events for a shipment segment
+      properties:
+        lxAssignedNumber:
+          type: integer
+          description: LX:01 - Assigned number for each detail loop
+        statusEvents:
+          type: array
+          description: AT7 status events in this LX loop
+          items:
+            $ref: '#/components/schemas/At7Segment'
+        currentLocation:
+          $ref: '#/components/schemas/Ms1Segment'
+        equipmentDetails:
+          $ref: '#/components/schemas/Ms2Segment'
+        shipmentQuantity:
+          $ref: '#/components/schemas/Q2Segment'
+    B10Segment:
+      type: object
+      description: B10 - Beginning Segment for Transportation Carrier Shipment Status Message
+      properties:
+        referenceIdentification:
+          type: string
+          description: B10:01 - Reference identification number (carrier tracking/PRO number)
+          example: '1234567890'
+        shipmentIdentificationNumber:
+          type: string
+          description: B10:02 - Carrier-assigned shipment identification number
+        scac:
+          type: string
+          description: B10:03 - Standard Carrier Alpha Code
           example: FXFE
-        equipmentNumber:
+          minLength: 2
+          maxLength: 4
+        inquiryRequestNumber:
           type: string
-          description: MS2:02 - Equipment/trailer number
-          example: AB102
-        equipmentDescriptionCode:
+          description: B10:04 - Inquiry request number (for response to 213)
+    Edi214Document:
+      type: object
+      description: Parsed representation of an X12 EDI 214 transaction set
+      properties:
+        transactionSetId:
           type: string
-          description: MS2:03 - Type of equipment
-          enum:
-          - '01'
-          - '02'
-          - '11'
-          - '12'
-          - AB
-          - TA
-          - TL
-          - CN
-          - TR
+          description: Transaction set control number (ST:02)
+          example: '0001'
+        interchangeControlNumber:
+          type: string
+          description: ISA control number
+        functionalGroupId:
+          type: string
+          description: GS control number
+        sender:
+          type: object
+          properties:
+            id:
+              type: string
+              description: ISA sender ID
+            qualifier:
+              type: string
+        receiver:
+          type: object
+          properties:
+            id:
+              type: string
+            qualifier:
+              type: string
+        header:
+          $ref: '#/components/schemas/B10Segment'
+        shipmentGroups:
+          type: array
+          items:
+            $ref: '#/components/schemas/LxLoop'
     TransactionList:
       type: object
       properties:
@@ -138,6 +195,31 @@ components:
                 type: string
               scac:
                 type: string
+    Ms2Segment:
+      type: object
+      description: MS2 - Equipment or Container Owner and Type
+      properties:
+        standardCarrierAlphaCode:
+          type: string
+          description: MS2:01 - Equipment owner SCAC
+          example: FXFE
+        equipmentNumber:
+          type: string
+          description: MS2:02 - Equipment/trailer number
+          example: AB102
+        equipmentDescriptionCode:
+          type: string
+          description: MS2:03 - Type of equipment
+          enum:
+          - '01'
+          - '02'
+          - '11'
+          - '12'
+          - AB
+          - TA
+          - TL
+          - CN
+          - TR
     At7Segment:
       type: object
       description: AT7 - Shipment Status Details segment
@@ -235,68 +317,6 @@ components:
         packagingFormCode:
           type: string
           description: Q2:06 - Packaging form code
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-        message:
-          type: string
-        details:
-          type: string
-    Edi214Document:
-      type: object
-      description: Parsed representation of an X12 EDI 214 transaction set
-      properties:
-        transactionSetId:
-          type: string
-          description: Transaction set control number (ST:02)
-          example: '0001'
-        interchangeControlNumber:
-          type: string
-          description: ISA control number
-        functionalGroupId:
-          type: string
-          description: GS control number
-        sender:
-          type: object
-          properties:
-            id:
-              type: string
-              description: ISA sender ID
-            qualifier:
-              type: string
-        receiver:
-          type: object
-          properties:
-            id:
-              type: string
-            qualifier:
-              type: string
-        header:
-          $ref: '#/components/schemas/B10Segment'
-        shipmentGroups:
-          type: array
-          items:
-            $ref: '#/components/schemas/LxLoop'
-    LxLoop:
-      type: object
-      description: LX detail loop containing status events for a shipment segment
-      properties:
-        lxAssignedNumber:
-          type: integer
-          description: LX:01 - Assigned number for each detail loop
-        statusEvents:
-          type: array
-          description: AT7 status events in this LX loop
-          items:
-            $ref: '#/components/schemas/At7Segment'
-        currentLocation:
-          $ref: '#/components/schemas/Ms1Segment'
-        equipmentDetails:
-          $ref: '#/components/schemas/Ms2Segment'
-        shipmentQuantity:
-          $ref: '#/components/schemas/Q2Segment'
     Ms1Segment:
       type: object
       description: MS1 - Equipment, Shipment, or Real Property Location
@@ -331,26 +351,6 @@ components:
           enum:
           - N
           - S
-    B10Segment:
-      type: object
-      description: B10 - Beginning Segment for Transportation Carrier Shipment Status Message
-      properties:
-        referenceIdentification:
-          type: string
-          description: B10:01 - Reference identification number (carrier tracking/PRO number)
-          example: '1234567890'
-        shipmentIdentificationNumber:
-          type: string
-          description: B10:02 - Carrier-assigned shipment identification number
-        scac:
-          type: string
-          description: B10:03 - Standard Carrier Alpha Code
-          example: FXFE
-          minLength: 2
-          maxLength: 4
-        inquiryRequestNumber:
-          type: string
-          description: B10:04 - Inquiry request number (for response to 213)
   responses:
     NotFound:
       description: Shipment or transaction not found
