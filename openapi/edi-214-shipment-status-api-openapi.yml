@@ -50,16 +50,14 @@ paths:
           $ref: '#/components/responses/BadRequest'
 components:
   schemas:
-    StatusLocation:
+    Error:
       type: object
       properties:
-        city:
+        code:
           type: string
-        state:
+        message:
           type: string
-        zipCode:
-          type: string
-        country:
+        details:
           type: string
     ShipmentStatusEvent:
       type: object
@@ -84,14 +82,16 @@ components:
           $ref: '#/components/schemas/StatusLocation'
         equipmentNumber:
           type: string
-    Error:
+    StatusLocation:
       type: object
       properties:
-        code:
+        city:
           type: string
-        message:
+        state:
           type: string
-        details:
+        zipCode:
+          type: string
+        country:
           type: string
   responses:
     BadRequest:
