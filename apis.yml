@@ -125,6 +125,9 @@ apis:
   - type: GettingStarted
     url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
 common:
+- type: CapabilityMap
+  url: capabilities/edi-214-capability-edges.yml
+  name: Edi 214 Business Capability Map
 - type: AgenticAccess
   url: agentic-access/edi-214-agentic-access.yml
 - type: DomainSecurity

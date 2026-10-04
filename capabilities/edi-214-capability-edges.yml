@@ -1,0 +1,25 @@
+slug: edi-214
+provider: Edi 214
+generated_by: planning/capability-mapping/scripts/classify_capabilities.py
+model: claude-opus-5
+frame:
+- Software & Technology
+min_confidence: 0.7
+capability_model:
+  source: https://github.com/vincentmakes/turbo-ea-capabilities
+  license: CC-BY-4.0
+  attribution: Turbo EA Capabilities by Vincent Verdet — Turbo EA, https://github.com/vincentmakes/turbo-ea-capabilities,
+    CC BY 4.0
+  notice: NOTICE
+edge_count: 1
+edges:
+- tag: Shipment Status
+  spec_file: edi-214-shipment-status-api-openapi.yml
+  capability_id: BC-520.50
+  capability_id_l1: BC-520
+  capability_name: Logistics Operations Management
+  confidence: 0.8
+  evidence: POST /shipments/{trackingNumber}/status postShipmentStatus 'Submit a shipment status update';
+    schemas ShipmentStatusEvent, StatusLocation
+  reason: Carrier shipment status events against a tracking number are transport execution/visibility,
+    squarely logistics operations within the supply chain.
