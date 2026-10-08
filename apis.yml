@@ -125,6 +125,12 @@ apis:
   - type: GettingStarted
     url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
 common:
+- type: Plans
+  url: plans/edi-214-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/edi-214-rate-limits.yml
+- type: FinOps
+  url: finops/edi-214-finops.yml
 - type: CapabilityMap
   url: capabilities/edi-214-capability-edges.yml
   name: Edi 214 Business Capability Map
