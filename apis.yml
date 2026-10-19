@@ -47,10 +47,11 @@ apis:
     type: Reference
   - url: https://www.stedi.com/edi/inspector
     type: DeveloperTools
-  description: Stedi provides a cloud EDI platform with comprehensive X12 214 documentation and tooling.
-    The EDI Inspector and JSONata Playground allow developers to parse, validate, and transform EDI 214
-    shipment status messages. Stedi supports the full X12 transaction set with REST API integration for
-    modern supply chain applications.
+  description: >-
+    Stedi provides a cloud EDI platform with comprehensive X12 214 documentation and tooling. The EDI
+    Inspector and JSONata Playground allow developers to parse, validate, and transform EDI 214 shipment
+    status messages. Stedi supports the full X12 transaction set with REST API integration for modern
+    supply chain applications.
 - aid: edi-214:flexport-edi-api
   name: Flexport EDI API (214 Air Shipment Status)
   tags:
@@ -66,18 +67,19 @@ apis:
     type: Documentation
   - url: https://developers.flexport.com/edi/
     type: Portal
-  description: Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status
-    using X12 4010 format. Enables air freight status tracking integration with Flexport's logistics platform.
-- aid: edi-214:edi-214-edi-processing-api
-  name: edi-214 EDI Processing API
-  description: EDI document parsing and generation
-  humanURL: https://x12.org/node/4214
-  baseURL: https://edi-gateway.logistics-platform.example.com/api
+  description: >-
+    Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status using X12 4010
+    format. Enables air freight status tracking integration with Flexport's logistics platform.
+- aid: edi-214:edi-214-claim-acknowledgments-api
+  name: Edi 214 Claim acknowledgments API
+  description: The Claim acknowledgments API from Edi 214 — 1 operation(s) for claim acknowledgments.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
   tags:
-  - EDI Processing
+  - Claim acknowledgments
   properties:
   - type: OpenAPI
-    url: openapi/edi-214-edi-processing-api-openapi.yml
+    url: openapi/edi-214-claim-acknowledgments-api-openapi.yml
   - type: Documentation
     url: https://x12.org/node/4214
   - type: Reference
@@ -86,16 +88,16 @@ apis:
     url: https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status
   - type: GettingStarted
     url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
-- aid: edi-214:edi-214-shipment-status-api
-  name: edi-214 Shipment Status API
-  description: EDI 214 shipment status events and tracking
-  humanURL: https://x12.org/node/4214
-  baseURL: https://edi-gateway.logistics-platform.example.com/api
+- aid: edi-214:edi-214-claim-submission-api
+  name: Edi 214 Claim submission API
+  description: The Claim submission API from Edi 214 — 8 operation(s) for claim submission.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
   tags:
-  - Shipment Status
+  - Claim submission
   properties:
   - type: OpenAPI
-    url: openapi/edi-214-shipment-status-api-openapi.yml
+    url: openapi/edi-214-claim-submission-api-openapi.yml
   - type: Documentation
     url: https://x12.org/node/4214
   - type: Reference
@@ -104,18 +106,108 @@ apis:
     url: https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status
   - type: GettingStarted
     url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
-- aid: edi-214:edi-214-transactions-api
-  name: edi-214 Transactions API
-  description: X12 transaction set management
-  humanURL: https://x12.org/node/4214
-  baseURL: https://edi-gateway.logistics-platform.example.com/api
+- aid: edi-214:edi-214-coordination-of-benefits-api
+  name: Edi 214 Coordination of benefits API
+  description: >-
+    The Coordination of benefits API from Edi 214 — 1 operation(s) for coordination of benefits.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
   tags:
-  - Transaction
-  tags_raw:
-  - Transactions
+  - Coordination of benefits
   properties:
   - type: OpenAPI
-    url: openapi/edi-214-transactions-api-openapi.yml
+    url: openapi/edi-214-coordination-of-benefits-api-openapi.yml
+  - type: Documentation
+    url: https://x12.org/node/4214
+  - type: Reference
+    url: https://www.stedi.com/edi/x12/transaction-set/214
+  - type: Documentation
+    url: https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status
+  - type: GettingStarted
+    url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
+- aid: edi-214:edi-214-insurance-discovery-api
+  name: Edi 214 Insurance discovery API
+  description: The Insurance discovery API from Edi 214 — 2 operation(s) for insurance discovery.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
+  tags:
+  - Insurance discovery
+  properties:
+  - type: OpenAPI
+    url: openapi/edi-214-insurance-discovery-api-openapi.yml
+  - type: Documentation
+    url: https://x12.org/node/4214
+  - type: Reference
+    url: https://www.stedi.com/edi/x12/transaction-set/214
+  - type: Documentation
+    url: https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status
+  - type: GettingStarted
+    url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
+- aid: edi-214:edi-214-payers-api
+  name: Edi 214 Payers API
+  description: The Payers API from Edi 214 — 4 operation(s) for payers.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
+  tags:
+  - Payers
+  properties:
+  - type: OpenAPI
+    url: openapi/edi-214-payers-api-openapi.yml
+  - type: Documentation
+    url: https://x12.org/node/4214
+  - type: Reference
+    url: https://www.stedi.com/edi/x12/transaction-set/214
+  - type: Documentation
+    url: https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status
+  - type: GettingStarted
+    url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
+- aid: edi-214:edi-214-real-time-claim-status-api
+  name: Edi 214 Real-time claim status API
+  description: The Real-time claim status API from Edi 214 — 2 operation(s) for real-time claim status.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
+  tags:
+  - Real-time claim status
+  properties:
+  - type: OpenAPI
+    url: openapi/edi-214-real-time-claim-status-api-openapi.yml
+  - type: Documentation
+    url: https://x12.org/node/4214
+  - type: Reference
+    url: https://www.stedi.com/edi/x12/transaction-set/214
+  - type: Documentation
+    url: https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status
+  - type: GettingStarted
+    url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
+- aid: edi-214:edi-214-real-time-eligibility-check-api
+  name: Edi 214 Real-time eligibility check API
+  description: >-
+    The Real-time eligibility check API from Edi 214 — 3 operation(s) for real-time eligibility check.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
+  tags:
+  - Real-time eligibility check
+  properties:
+  - type: OpenAPI
+    url: openapi/edi-214-real-time-eligibility-check-api-openapi.yml
+  - type: Documentation
+    url: https://x12.org/node/4214
+  - type: Reference
+    url: https://www.stedi.com/edi/x12/transaction-set/214
+  - type: Documentation
+    url: https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status
+  - type: GettingStarted
+    url: https://www.spscommerce.com/edi-document/edi-214-shipment-status/
+- aid: edi-214:edi-214-remittances-api
+  name: Edi 214 Remittances API
+  description: The Remittances API from Edi 214 — 2 operation(s) for remittances.
+  humanURL: https://www.stedi.com/
+  baseURL: https://api.stedi.com
+  tags:
+  - Remittances
+  properties:
+  - type: OpenAPI
+    url: openapi/edi-214-remittances-api-openapi.yml
   - type: Documentation
     url: https://x12.org/node/4214
   - type: Reference

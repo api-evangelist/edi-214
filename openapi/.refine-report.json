@@ -1,24 +1,33 @@
 {
   "provider": "edi-214",
   "sources": [
-    "_original/stedi-edi214-openapi.yml"
+    "_original/edi-214-openapi.json"
   ],
   "outputs": [
-    "edi-214-edi-processing-api-openapi.yml",
-    "edi-214-shipment-status-api-openapi.yml",
-    "edi-214-transactions-api-openapi.yml"
+    "edi-214-claim-acknowledgments-api-openapi.yml",
+    "edi-214-claim-submission-api-openapi.yml",
+    "edi-214-coordination-of-benefits-api-openapi.yml",
+    "edi-214-insurance-discovery-api-openapi.yml",
+    "edi-214-payers-api-openapi.yml",
+    "edi-214-real-time-claim-status-api-openapi.yml",
+    "edi-214-real-time-eligibility-check-api-openapi.yml",
+    "edi-214-remittances-api-openapi.yml"
   ],
   "archived": [],
   "errors": [],
   "warnings": [],
   "notes": [
     "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
-    "stedi-edi214-openapi.yml: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
-    "apis.yml register: already-registered"
+    "edi-214-openapi.json: upgraded openapi 3.1.0 -> OpenAPI 3.2.0",
+    "edi-214-openapi.json: declared missing tag: Claim acknowledgments",
+    "edi-214-openapi.json: declared missing tag: Claim submission",
+    "edi-214-openapi.json: declared missing tag: Coordination of benefits",
+    "edi-214-openapi.json: declared missing tag: Insurance discovery",
+    "edi-214-openapi.json: declared missing tag: Payers",
+    "edi-214-openapi.json: declared missing tag: Real-time claim status",
+    "edi-214-openapi.json: declared missing tag: Real-time eligibility check",
+    "edi-214-openapi.json: declared missing tag: Remittances",
+    "apis.yml register: written (+8 apis, 10 total)"
   ],
-  "skipped": [
-    "edi-214-edi-processing-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "edi-214-shipment-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
-    "edi-214-transactions-api-openapi.yml: previously refined output, superseded by openapi/_original/"
-  ]
+  "skipped": []
 }
