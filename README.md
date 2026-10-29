@@ -1,4 +1,4 @@
-# edi-214 (edi-214)
+# Edi 214
 
 <!-- API-EVANGELIST-PROVENANCE:BEGIN -->
 > ### About this repository
@@ -66,92 +66,139 @@
 
 Chartered by the American National Standards Institute for more than 40 years, X12 develops and maintains EDI standards and XML schemas which drive business processes globally.
 
-**APIs.json:** [https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/apis.yml](https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/apis.yml)
+**Areas:** EDI · Logistics · Transaction
 
-## Timestamps
+## Edi 214 on APIs.io
 
-- **Modified:** 2026-05-19
+Everything profiled for Edi 214 is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/edi-214/](https://apis.io/providers/edi-214/)** — or go straight to one of the APIs or properties below.
 
-## APIs
+### APIs (5)
 
-### EDI 214 Transportation Carrier Shipment Status Message
+- [Stedi EDI API (X12 214 Support)](https://apis.io/apis/edi-214/stedi-edi-api/) — Stedi provides a cloud EDI platform with comprehensive X12 214 documentation and tooling. The EDI Inspector and JSONata Playground allow developers to…
+- [Flexport EDI API (214 Air Shipment Status)](https://apis.io/apis/edi-214/flexport-edi-api/) — Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status using X12 4010 format. Enables air freight status tracking…
+- [edi-214 EDI Processing API](https://apis.io/apis/edi-214/edi-214-edi-processing-api/) — EDI document parsing and generation
+- [edi-214 Shipment Status API](https://apis.io/apis/edi-214/edi-214-shipment-status-api/) — EDI 214 shipment status events and tracking
+- [edi-214 Transactions API](https://apis.io/apis/edi-214/edi-214-transactions-api/) — X12 transaction set management
 
-The EDI 214 (Transportation Carrier Shipment Status Message) is an ANSI X12 electronic data interchange standard transaction set used by transportation carriers to provide shippers, consignees, and agents with shipment status in terms of dates, times, locations, route, and conveyance. Key segments include B10 (tracking number), MS1 (current location), and AT7 (current status).
+### Published properties
 
-- **Human URL:** [https://x12.org/node/4214](https://x12.org/node/4214)
-- **Base URL:** `https://edi-gateway.logistics-platform.example.com/api`
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
 
-#### Tags
+#### Agentic access (1)
 
-- EDI
-- Freight
-- Logistics
-- Shipment Tracking
-- Transportation
-- X12
+Which operations an agent can call, which act, and which need a human in the loop.
 
-#### Properties
+- [Edi 214 Agentic Access](https://apis.io/agentic-access/edi-214/edi-214-agentic-access/)
 
-- [Documentation](https://x12.org/node/4214)
-- [Reference](https://www.stedi.com/edi/x12/transaction-set/214)
-- [Documentation](https://support.edifabric.com/hc/en-us/articles/360010385272-X12-214-Shipment-Status)
-- [Getting Started](https://www.spscommerce.com/edi-document/edi-214-shipment-status/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/openapi/stedi-edi214-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
+#### JSON Schema (1)
 
-### Stedi EDI API (X12 214 Support)
+The data models the API reads and writes.
 
-Stedi provides a cloud EDI platform with comprehensive X12 214 documentation and tooling. The EDI Inspector and JSONata Playground allow developers to parse, validate, and transform EDI 214 shipment status messages. Stedi supports the full X12 transaction set with REST API integration for modern supply chain applications.
+- [EDI 214 Transportation Carrier Shipment Status Message](https://apis.io/schemas/edi-214/edi-214-shipment-status/)
 
-- **Human URL:** [https://www.stedi.com/](https://www.stedi.com/)
-- **Base URL:** `https://api.stedi.com`
+#### JSON-LD (1)
 
-#### Tags
+Linked-data contexts for the provider's vocabulary.
 
-- EDI
-- JSON
-- Logistics
-- REST
-- Shipment Tracking
-- X12
+- [Edi 214 Context](https://apis.io/jsonld/edi-214/edi-214-context/)
 
-#### Properties
+#### Collections (3)
 
-- [Documentation](https://www.stedi.com/edi/x12/transaction-set/214)
-- [Reference](https://www.stedi.com/edi)
-- [Developer Tools](https://www.stedi.com/edi/inspector)
+Postman and Open Collection request collections.
 
-### Flexport EDI API (214 Air Shipment Status)
+- [EDI 214 Transportation Carrier Shipment Status EDI Processing API](https://apis.io/collections/edi-214/open-edi-214-edi-processing-api/)
+- [EDI 214 Transportation Carrier EDI Processing Shipment Status API](https://apis.io/collections/edi-214/open-edi-214-shipment-status-api/)
+- [EDI 214 Transportation Carrier Shipment Status EDI Processing Transactions API](https://apis.io/collections/edi-214/open-edi-214-transactions-api/)
 
-Flexport's EDI developer portal provides documentation for EDI 214 Air Shipment Status using X12 4010 format. Enables air freight status tracking integration with Flexport's logistics platform.
+#### Governance rules (1)
 
-- **Human URL:** [https://developers.flexport.com/edi/](https://developers.flexport.com/edi/)
-- **Base URL:** `https://api.flexport.com`
+Spectral rulesets for the provider's contracts.
 
-#### Tags
+- [Edi 214 — jsonschema rules](https://apis.io/rules/edi-214/edi-214-jsonschema-spectral-rules/)
 
-- Air Freight
-- EDI
-- Logistics
-- Shipment Tracking
-- X12
+#### Security (2)
 
-#### Properties
+Authentication, trust centre, and vulnerability disclosure.
 
-- [Documentation](https://developers.flexport.com/edi/)
-- [Portal](https://developers.flexport.com/edi/)
+- [Edi 214 Authentication](https://apis.io/security/edi-214/edi-214-authentication/)
+- [Edi 214 Domain Security](https://apis.io/security/edi-214/edi-214-domain-security/)
 
-## Common Properties
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Edi 214 Plans Pricing](https://apis.io/plans/edi-214/edi-214-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Edi 214 Rate Limits](https://apis.io/rate-limits/edi-214/edi-214-rate-limits/)
+
+#### FinOps (1)
+
+What the API costs to run, by operation.
+
+- [Edi 214 Finops](https://apis.io/finops/edi-214/edi-214-finops/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
 
 - [Website](https://x12.org/)
-- [OpenAPI](https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/openapi/stedi-edi214-openapi.yml) — [OpenAPI Specification](https://spec.openapis.org/oas/latest.html)
-- [JSON Schema](https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-schema/edi-214-shipment-status-schema.json) — [JSON Schema](https://json-schema.org/specification)
-- [J S O N L D Context](https://raw.githubusercontent.com/api-evangelist/edi-214/refs/heads/main/json-ld/edi-214-context.jsonld)
-- [Portal](https://www.stedi.com/edi)
 - [Documentation](https://x12.org/node/4214)
-- [Reference](https://www.stedi.com/edi/x12/transaction-set/214)
-- [Getting Started](https://www.spscommerce.com/edi-document/edi-214-shipment-status/)
-- [Developer Tools](https://www.stedi.com/edi/inspector)
+- [Getting started](https://www.spscommerce.com/edi-document/edi-214-shipment-status/)
+- [Blog](https://x12.org/rss.xml)
 
-## Maintainers
+## API Evangelist rating
 
-**Email:** kin@apievangelist.com
+**Kin Score 32.5** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 48.2 |
+| Contract quality | 55.4 |
+| Contract governance | 9.8 |
+| Operational transparency | 7.9 |
+| Developer ergonomics | 52.4 |
+| Access clarity | 7.9 |
+
+**Agent readiness 20.4** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | derived (partial credit) |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | partial |
+| Rate Limit Signal | derived (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | — |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+
+**Regulatory alignment 16.7** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/edi-214/](https://apis.io/providers/edi-214/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Edi 214: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/edi-214/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
